@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>완두콩 교배 실험실</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.3.1/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<style>
+:root{--bg:#f4f6f2;--ink:#17231b;--sub:#46564b;--line:#c5d0c2;--pod:#2b5d34;--teal:#0e6a78;--slate:#465366;--pea:#e6c53f}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 "Pretendard","Noto Sans KR","Malgun Gothic",sans-serif}
+main{max-width:980px;margin:0 auto;padding:16px 14px 70px}
+.top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}
+h1{font-size:1.9rem;line-height:1.3;margin:.1em 0;font-weight:800}.who{color:var(--sub)}
+h2{font-size:1.2rem;margin:0 0 .5em}
+.card{background:#fff;border:2px solid var(--line);border-radius:12px;padding:16px;margin:16px 0}
+.sec{background:#fff;border:3px solid var(--c);border-radius:14px;margin:24px 0;overflow:hidden}
+.sec-h{background:var(--c);color:#fff;padding:12px 18px;font-size:1.4rem;font-weight:800;line-height:1.4}
+.sec-h small{display:block;font-size:1rem;font-weight:500;opacity:.92}
+.sec-b{padding:4px 18px 20px}.s1{--c:var(--pod)}.s2{--c:var(--teal)}.s3{--c:var(--slate)}
+.sub-h{font-size:1.15rem;font-weight:800;border-left:7px solid var(--c,var(--pod));padding-left:10px;margin:22px 0 10px}
+.hint{background:#fff7d6;border:2px solid var(--pea);border-radius:10px;padding:10px 14px;margin:8px 0 12px}
+.muted{color:var(--sub);font-size:1rem}
+button{font:inherit;font-weight:700;border:2px solid var(--c,var(--pod));border-radius:10px;padding:11px 20px;min-height:48px;background:var(--c,var(--pod));color:#fff;cursor:pointer;margin:2px 4px 2px 0}
+button.sub{background:#fff;color:var(--c,var(--pod))}button:disabled{opacity:.4;cursor:default}
+:focus-visible{outline:4px solid var(--pea);outline-offset:2px}
+input,select,textarea{font:inherit;padding:10px;border:2px solid var(--line);border-radius:10px;width:100%}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:end}.row>*{flex:1 1 150px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.tabs button{flex:1 1 240px;background:#fff;color:var(--ink);border:3px solid var(--line);text-align:left;line-height:1.35;font-size:1.15rem;margin:0}
+.tabs button.on{border-color:var(--ink);background:var(--ink);color:#fff}.tabs small{display:block;font-weight:500;font-size:.95rem;opacity:.85}
+.plant{display:inline-flex;align-items:center;gap:8px;border:3px solid var(--line);border-radius:12px;padding:8px 14px;margin:5px 6px 5px 0;cursor:pointer;background:#fff;font-weight:600}
+.plant.on{border-color:var(--c);background:var(--c);color:#fff}
+.x{margin-left:4px;padding:0 8px;border-radius:50%;font-size:1.2rem;line-height:1.3}.x:hover{background:#fff3}
+.res{margin-top:18px;padding:2px 16px 14px;background:#f5f8f3;border:2px solid var(--line);border-radius:12px}
+.bar{display:flex;align-items:center;gap:10px;margin:8px 0;flex-wrap:wrap}
+.bar .nm{width:150px;font-weight:700}.bar i{display:block;height:22px;border-radius:5px;min-width:3px}
+.bar .pc{font-size:1.3rem;font-weight:800;min-width:78px}
+.chip{background:var(--ink);color:#fff;border-radius:999px;padding:1px 12px;font-weight:700;font-size:.95rem}
+.sum{margin:12px 0;padding:10px 14px;background:#fff;border:2px solid var(--ink);border-radius:10px;font-weight:700}
+.seeds{display:flex;flex-wrap:wrap;gap:4px;padding:10px;background:#fff;border:2px dashed var(--line);border-radius:10px;max-height:320px;overflow:auto}
+.sd{cursor:pointer;border-radius:50%;line-height:0;border:3px solid transparent;padding:1px}.sd:hover{border-color:var(--line)}.sd.taken{border-color:var(--c);background:#cfe6c9}
+table{border-collapse:collapse;width:100%;background:#fff}td,th{border:1px solid var(--line);padding:10px 12px;text-align:left}th{background:#eef2eb;font-weight:800}
+.warn{background:#fff7d6;border:2px solid var(--pea);padding:10px 14px;border-radius:10px}
+.s4{--c:#8a4b12}.pn{width:auto;margin:8px 0}.pn td,.pn th{text-align:center;min-width:72px;font-size:1.05rem}.pn th{background:#f3e8dc}
+#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;z-index:9;max-width:90vw}#toast.show{opacity:1}
+.tabs button{flex:1 1 150px;font-size:1rem}.tabs button.lock{opacity:.55}.who button{min-height:36px;padding:4px 12px;margin-left:8px}.q{border:2px solid var(--line);border-radius:10px;padding:14px;margin:12px 0;font-size:1.1rem}.q.ok{border-color:#2b8a3e;background:#eaf6ec}.q.no{border-color:#b3402f;background:#fbeceb}input.bl{display:inline-block;width:9em;margin:0 6px;padding:4px 8px}.pw{overflow-x:auto}.pn td{font-size:.9rem}
+.bar{display:block;margin:12px 0}.bh{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.bar .nm{flex:1 1 auto;width:auto;min-width:0}.bar .pc{min-width:0}.trk{height:16px;background:#e3eadf;border-radius:8px;overflow:hidden;margin-top:6px}.trk i{display:block;height:100%;min-width:0;border-radius:0}.guide{background:#eef4ff;border:2px solid #9db8e8;border-radius:10px;padding:10px 16px 6px;margin:8px 0 14px}.guide ol{margin:8px 0;padding-left:22px}.guide li{margin:6px 0}
+.hero{background:var(--pod);color:#fff;border-radius:16px;padding:26px 18px 18px;text-align:center;margin-top:8px}.unit{display:inline-block;background:#ffffff26;border:2px solid #ffffff80;border-radius:999px;padding:4px 18px;font-weight:700}.hero h1{font-size:2.4rem;margin:.35em 0 .1em}.hero p{margin:0 0 4px;opacity:.95}.deco{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-top:16px}.flow{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center;margin:16px 0;font-weight:700}.flow span{background:#fff;border:2px solid var(--line);border-radius:999px;padding:4px 14px}.card.login{max-width:640px;margin:0 auto}.card.login input{padding:12px;font-size:1.1rem}
+.hero{position:relative}.qr{position:absolute;top:12px;right:12px;width:116px;background:#fff;color:var(--ink);border-radius:10px;padding:6px 6px 4px;text-align:center;font-size:.8rem;line-height:1.3}.qr svg{display:block;width:100%;height:auto}.qr b{display:block;margin-top:2px}.qr.off{padding:10px 8px;font-size:.78rem}.qr.off span{display:block;color:var(--sub);margin-top:2px}@media(max-width:620px){.qr{position:static;margin:14px auto 0}}
+</style></head><body><main id="app"></main>
+<script>
+// ▼ Supabase 프로젝트 설정 (Project Settings > API 에서 복사)
+const SUPABASE_URL = "https://mcieigttqvlkecbtsoia.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_9t4zUpTBEj-R0VMcDcJI-g_F5Jn04OU";
+const SITE_URL = ""; // 학생들이 접속할 주소. 비워 두면 지금 열려 있는 인터넷 주소로 QR을 만들어요
+const TEACHER_PIN = "690203"; // 교사용 화면 비밀번호(수업 전에 바꾸세요)
+// ▲
+
+const $ = s => document.querySelector(s), app = $("#app");
+const sb = SUPABASE_URL ? supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const TRALL = [{L:"R", ph:["둥근","주름진"], nm:"씨 모양"}, {L:"Y", ph:["노란","초록"], nm:"씨 색깔"}, {L:"P", ph:["보라색 꽃","흰색 꽃"], nm:"꽃 색깔"}];
+let TR = TRALL;
+const COL = {"0":"#e6c53f","1":"#7a5a86"}, COL2 = {"00":"#e6c53f","01":"#8fb04a","10":"#c99a2e","11":"#3e6b3a"};
+const esc = t => String(t).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let S = {name:"", code:"", stage:0, bench:[], A:null, B:null, cum:{}, last:null, cnt:0};
+
+const phIdx = (g, i) => g.substr(2*i, 2).includes(TR[i].L) ? 0 : 1;
+const phKey = (g, n) => Array.from({length:n}, (_, i) => phIdx(g, i)).join("");
+const phName = (g, n) => Array.from({length:n}, (_, i) => TR[i].ph[phIdx(g, i)]).join("·");
+const gamete = (g, n) => Array.from({length:n}, (_, i) => g.substr(2*i, 2)[Math.random() < .5 ? 0 : 1]);
+function child(a, b, n) {
+  const x = gamete(a, n), y = gamete(b, n);
+  return x.map((c, i) => [c, y[i]].sort((p, q) => (p === p.toUpperCase() ? 0 : 1) - (q === q.toUpperCase() ? 0 : 1)).join("")).join("");
+}
+const YEL = ["#e6c53f", "#c9a22a"], GRN = ["#7fb84a", "#5a9436"]; // [매끈, 주름]
+const WRP = (() => { const p = []; for (let i = 0; i < 16; i++) { const a = i / 16 * 6.283, r = i % 2 ? 8.4 : 11.2; p.push((13 + r * Math.cos(a)).toFixed(1) + "," + (13 + r * .92 * Math.sin(a)).toFixed(1)); } return "M" + p.join("L") + "Z"; })();
+const keysOf = n => Array.from({length: 2 ** n}, (_, i) => i.toString(2).padStart(n, "0"));
+const nameK = (k, n) => [...k].map((d, i) => TR[i].ph[d]).join("·");
+const STAR = (() => { const p = []; for (let i = 0; i < 10; i++) { const a = (-90 + i * 36) * Math.PI / 180, r = i % 2 ? 6.2 : 13; p.push((13 + r * Math.cos(a)).toFixed(1) + "," + (13 + r * Math.sin(a)).toFixed(1)); } return "M" + p.join("L") + "Z"; })();
+function seed(k, n, s = 26) {
+  const si = S.tr.indexOf(0), ci = S.tr.indexOf(1), fi = S.tr.indexOf(2), w = si >= 0 && k[si] === "1", c = (ci >= 0 && k[ci] === "1" ? GRN : YEL)[w ? 1 : 0];
+  let body = w ? `<path d="${WRP}" fill="${c}" stroke="#0003"/><path d="M8 9Q13 12 18 9M8 17Q13 14 18 17M13 7V19" stroke="#0005" fill="none"/>`
+               : `<circle cx="13" cy="13" r="11" fill="${c}" stroke="#0002"/><ellipse cx="9.5" cy="9" rx="3" ry="2" fill="#fff6"/>`;
+  if (fi >= 0) { const wh = k[fi] === "1";
+    body = `<path d="${STAR}" fill="${wh ? "#fff" : "#8e5bd0"}" stroke="${wh ? "#8b95a0" : "#5b2f9e"}"/><g transform="translate(13 13) scale(.68) translate(-13 -13)">${body}</g>`; }
+  return `<svg width="${s}" height="${s}" viewBox="0 0 26 26"><title>${nameK(k, n)}</title>${body}</svg>`;
+}
+const KEYS = ["plants", "sel", "cum", "kids", "last", "no", "ctr", "pairs"];
+const TRS = {1:[0], 2:[1], 3:[0, 1], 4:[0, 1, 2]};
+const total = pk => Object.values(S.cum[pk] || {}).reduce((s, x) => s + x, 0);
+const snap = () => Object.fromEntries(KEYS.map(k => [k, S[k]]));
+const AK = () => "mendel:" + S.code + "|" + S.name;
+function persist() {
+  if (!S.name || !S.stage) return;
+  S.saved = S.saved || {}; S.saved[S.stage] = snap();
+  try { localStorage.setItem(AK(), JSON.stringify({pin:S.pin, prog:S.prog, saved:S.saved, stage:S.stage})); } catch (e) {}
+}
+function syncProg() { send("progress", {pin:S.pin, sub:S.prog.sub, ver:S.prog.ver, quiz:S.prog.quiz}); }
+function startStage(n) {
+  if (S.stage) { S.saved = S.saved || {}; S.saved[S.stage] = snap(); }
+  S.stage = n; S.view = "e" + n; S.tr = TRS[n]; TR = S.tr.map(i => TRALL[i]); S.n = TR.length; S.vp = null; S.cf = false;
+  const sv = S.saved && S.saved[n];
+  if (sv) Object.assign(S, sv);
+  else {
+    S.sel = {P:[], F:[]}; S.cum = {}; S.kids = {}; S.last = null; S.no = {}; S.ctr = 0; S.pairs = {};
+    S.plants = [{id:"P1", gen:0, label:"부모 " + TR.map(t => t.ph[0]).join("·") + " 완두", g:TR.map(t => t.L + t.L).join("")},
+                {id:"P2", gen:0, label:"부모 " + TR.map(t => t.ph[1]).join("·") + " 완두", g:TR.map(t => t.L.toLowerCase() + t.L.toLowerCase()).join("")}];
+  }
+  render();
+}
+const doneE = n => !!(S.prog.sub[n] && S.prog.ver[n]), doneQ = id => !!(S.prog.quiz[id] && S.prog.quiz[id].done);
+const STEPS = [
+  {id:"e1", n:1, t:"실험 1", s:"씨 모양", open:() => true, done:() => doneE(1)},
+  {id:"e2", n:2, t:"실험 2", s:"씨 색깔", open:() => true, done:() => doneE(2)},
+  {id:"qA", t:"형성평가 ①", s:"분리의 법칙", open:() => doneE(1) || doneE(2), why:"실험 1 또는 실험 2의 메모 제출과 검증을 마치면 열려요.", done:() => doneQ("A")},
+  {id:"e3", n:3, t:"실험 3", s:"씨 모양 + 씨 색깔", open:() => doneQ("A") && doneE(1) && doneE(2), why:"실험 1, 2를 모두 마치고 형성평가 ①까지 마치면 열려요.", done:() => doneE(3)},
+  {id:"qB", t:"형성평가 ②", s:"독립의 법칙", open:() => doneE(3), why:"실험 3의 메모 제출과 검증을 마치면 열려요.", done:() => doneQ("B")},
+  {id:"e4", n:4, t:"실험 4", s:"모양 + 색깔 + 꽃 색", open:() => doneQ("B"), why:"형성평가 ②를 마치면 열려요.", done:() => doneE(4)}];
+window.go = id => { const st = STEPS.find(x => x.id === id); if (!st.open()) return toast(st.why); if (st.n) startStage(st.n); else { S.view = id; render(); } };
+const norm = a => (a || "").replace(/\s/g, "");
+const QZ = {
+  A:{t:"형성평가 ① 분리의 법칙", qs:[
+    {t:"생식세포를 만들 때 한 쌍의 대립유전자가 분리되어 다음 세대로 유전되는 현상을 {}(이)라고 한다.", ans:"분리의 법칙", ok:a => norm(a[0]).replace(/의/g, "") === "분리법칙"},
+    {t:"유전자형이 Rr인 개체가 만들 수 있는 생식세포의 종류는 {}, {}가 있다.", ans:"R, r (순서는 상관없어요)", ok:a => [norm(a[0]), norm(a[1])].sort().join() === "R,r"}]},
+  B:{t:"형성평가 ② 독립의 법칙", qs:[
+    {t:"유전자형이 RrYy인 완두가 만드는 생식세포의 종류는 {}가지이다.", ans:"4", ok:a => norm(a[0]).replace(/가지/g, "") === "4"},
+    {t:"완두의 교배에서 둥글고 황색, 둥글고 녹색, 주름지고 황색, 주름지고 녹색인 완두의 비가 9:3:3:1일 때, 둥근 완두와 주름진 완두의 비는 {}가 된다.", ans:"3:1", ok:a => norm(a[0]).replace(/대/g, ":") === "3:1"}]}};
+function quizView(id) {
+  const Q = QZ[id], st = S.prog.quiz[id] = S.prog.quiz[id] || {ans:Q.qs.map(q => q.t.split("{}").slice(1).map(() => "")), done:false}, d = st.done;
+  const body = Q.qs.map((q, i) => { const parts = q.t.split("{}"), ok = d && q.ok(st.ans[i]);
+    return `<div class="q ${d ? (ok ? "ok" : "no") : ""}"><b>${i + 1}.</b> ${parts.map((p, j) => esc(p) + (j < parts.length - 1 ? `<input class="bl" ${d ? "readonly" : ""} value="${esc(st.ans[i][j])}" oninput="qa('${id}',${i},${j},this.value)">` : "")).join("")}${d ? `<div class="muted">${ok ? "✓ 정답이에요!" : "✗ 정답: <b>" + esc(q.ans) + "</b>"}</div>` : ""}</div>`; }).join("");
+  const nb = nextBtns();
+  return `<section class="sec s3"><div class="sec-h">${Q.t}<small>빈칸을 모두 채우고 제출하세요</small></div><div class="sec-b">${body}${d ? `<div class="hint">제출을 마쳤어요. ${nb ? "다음으로 할 수 있는 단계를 골라 보세요." : "모든 단계를 마쳤어요!"}</div>${nb}` : `<p><button onclick="submitQuiz('${id}')">제출하기</button></p>`}</div></section>`;
+}
+window.qa = (id, i, j, v) => { S.prog.quiz[id].ans[i][j] = v; };
+window.submitQuiz = id => {
+  const st = S.prog.quiz[id]; if (st.ans.some(r => r.some(x => !x.trim()))) return toast("빈칸을 모두 채워 주세요.");
+  st.done = true; st.score = QZ[id].qs.filter((q, i) => q.ok(st.ans[i])).length; syncProg(); render();
+};
+async function send(kind, payload) {
+  if (!sb) return;
+  const {error} = await sb.from("logs").insert({class_code:S.code, student:S.name, kind, payload});
+  if (error) toast("서버 저장에 실패했어요. 선생님께 알려주세요.");
+}
+const byId = id => S.plants.find(p => p.id === id);
+window.pick = (z, id) => { const s = S.sel[z], i = s.indexOf(id); if (i >= 0) s.splice(i, 1); else if (s.length < 2) s.push(id); else S.sel[z] = [id]; render(); };
+window.doCross = (z, N) => {
+  const s = S.sel[z], n = S.n; if (!s.length) return;
+  const a = byId(s[0]), b = byId(s[1] || s[0]), pk = [a.id, b.id].sort().join("+"), c = {};
+  const K = S.kids[pk] = S.kids[pk] || [], cm = S.cum[pk] = S.cum[pk] || {};
+  for (let k = 0; k < N; k++) { const g = child(a.g, b.g, n), key = phKey(g, n); K.push(g); c[key] = (c[key] || 0) + 1; cm[key] = (cm[key] || 0) + 1; }
+  if (K.length > 300) K.splice(0, K.length - 300);
+  S.pairs[pk] = {a, b}; S.last = {z, pk, a, b};
+  send("cross", {stage:S.stage, a:a.label, b:b.label, n:N, counts:c}); render();
+};
+window.resetCross = () => { const L = S.last; delete S.cum[L.pk]; delete S.kids[L.pk]; S.last = null; render(); };
+window.take = i => {
+  const L = S.last, K = S.kids[L.pk], base = total(L.pk) - K.length, src = L.pk + ":" + i, ex = S.plants.findIndex(p => p.src === src);
+  if (ex >= 0) { const id = S.plants[ex].id; S.plants.splice(ex, 1); S.sel.F = S.sel.F.filter(x => x !== id); }
+  else if (K[i - base] !== undefined) {
+    const gen = Math.max(L.a.gen, L.b.gen) + 1;
+    const pre = !L.a.gen && !L.b.gen ? "자손 1세대" : L.a.gen && L.b.gen ? "자손 " + gen + "세대" : "자손 " + Math.max(L.a.gen, L.b.gen) + "세대와 부모의 자손";
+    S.no[pre] = (S.no[pre] || 0) + 1;
+    S.plants.push({id:"X" + (++S.ctr), src, gen, label:`${pre} ${S.no[pre]}호`, g:K[i - base]});
+  }
+  render();
+};
+function chips(z) {
+  const n = S.n, L = S.plants.filter(p => z === "P" ? !p.gen : p.gen);
+  if (!L.length) return '<div class="hint">아직 식물이 없어요. 교배 결과에서 키우고 싶은 씨앗을 클릭해 보세요.</div>';
+  return L.map(p => `<span class="plant ${S.sel[z].includes(p.id) ? "on" : ""}" tabindex="0" role="button" onclick="pick('${z}','${p.id}')" onkeydown="if(event.key==='Enter')pick('${z}','${p.id}')">${seed(phKey(p.g, n), n, 28)} ${esc(p.label)}${z === "F" ? `<b class="x" role="button" aria-label="삭제" title="이 식물 삭제" onclick="event.stopPropagation();del('${p.id}')">×</b>` : ""}</span>`).join("");
+}
+function ctrl(z) {
+  const m = S.sel[z].length, t = m === 1 ? "자가수분" : "교배";
+  const msg = m === 0 ? "식물을 클릭해 선택하세요. 하나만 고르면 자가수분, 두 개를 고르면 서로 교배해요." : m === 1 ? "1개 선택 → 자가수분해요. 다른 식물도 고르면 서로 교배해요." : "2개 선택 → 서로 교배해요.";
+  return `<div class="sub-h">교배하기</div><div class="hint">${msg}</div><button ${m ? "" : "disabled"} onclick="doCross('${z}',10)">${t} · 씨앗 10개 더</button> <button class="sub" ${m ? "" : "disabled"} onclick="doCross('${z}',1)">씨앗 1개 더</button> ${S.stage >= 3 ? `<button class="sub" ${m ? "" : "disabled"} onclick="doCross('${z}',100)">씨앗 100개 더</button>` : ""} ${S.stage === 4 ? `<button class="sub" ${m ? "" : "disabled"} onclick="doCross('${z}',1000)">씨앗 1000개 더</button>` : ""}`;
+}
+const PAL = ["#e08a00", "#2b8a3e", "#1f6fb5", "#7a5a86", "#c2185b", "#00897b", "#6d4c41", "#546e7a"];
+const LC = n => n === 1 ? (TR[0].L === "Y" ? ["#c9a22a", "#5a9436"] : ["#2b5d34", "#7a5a86"]) : n === 2 ? PAL.slice(0, 4) : PAL;
+const fr = x => x.toFixed(1).replace(/\.0$/, "");
+function ratio(cum, n) {
+  const ks = keysOf(n), v = ks.map(k => cum[k] || 0), t = v.reduce((s, x) => s + x, 0), m = Math.min(...v.filter(x => x > 0)), ok = isFinite(m), col = LC(n);
+  const rows = ks.map((k, i) => { const p = t ? v[i] / t * 100 : 0;
+    return `<div class="bar"><div class="bh">${seed(k, n, 26)}<span class="nm">${nameK(k, n)}</span><span class="pc">${p.toFixed(1)}%</span><span class="chip">비율 ${ok ? fr(v[i] / m) : "-"}</span><span class="muted">${v[i]}개</span></div><div class="trk"><i style="width:${p}%;background:${col[i]}"></i></div></div>`; }).join("");
+  return rows + (ok ? `<div class="sum">비율 = ${v.map(x => fr(x / m)).join(" : ")}<div class="muted">(위에 나온 순서대로)</div></div>` : "");
+}
+function perTrait(cum) {
+  return TR.map((t, i) => { const c = [0, 0]; for (const k in cum) c[+k[i]] += cum[k];
+    const s = c[0] + c[1], p = j => s ? (c[j] / s * 100).toFixed(1) : "0.0", m = Math.min(...c.filter(v => v > 0));
+    return `<tr><th>${t.nm}</th><td>${t.ph[0]} <b>${p(0)}%</b> (${c[0]}개)</td><td>${t.ph[1]} <b>${p(1)}%</b> (${c[1]}개)</td><td><b>비율 ${isFinite(m) ? (c[0] / m).toFixed(1) + " : " + (c[1] / m).toFixed(1) : "-"}</b></td></tr>`; }).join("");
+}
+window.del = id => { S.plants = S.plants.filter(p => p.id !== id); S.sel.F = S.sel.F.filter(x => x !== id); render(); };
+function result(z) {
+  const L = S.last; if (!L || L.z !== z) return "";
+  const n = S.n, cm = S.cum[L.pk], K = S.kids[L.pk], st = Math.max(0, K.length - 240), T = total(L.pk), base = T - K.length, self = L.a.id === L.b.id;
+  const dots = K.slice(st).map((g, j) => `<span class="sd ${S.plants.some(p => p.src === L.pk + ":" + (base + st + j)) ? "taken" : ""}" role="button" tabindex="0" title="${nameK(phKey(g, n), n)}" onclick="take(${base + st + j})" onkeydown="if(event.key==='Enter')take(${base + st + j})">${seed(phKey(g, n), n, 32)}</span>`).join("");
+  return `<div class="res"><div class="sub-h">교배 결과: ${esc(L.a.label)} ${self ? "자가수분" : "× " + esc(L.b.label)} (씨앗 ${T}개)</div>
+  <div class="sub-h">겉모습별 퍼센트와 비율</div>${ratio(cm, n)}
+  ${n >= 2 ? `<div class="sub-h">형질별로 따로 세어 보기</div><table>${perTrait(cm)}</table>` : ""}
+  <div class="sub-h">얻은 씨앗</div><div class="hint">키우고 싶은 씨앗을 클릭하면 자손 세대 실험실로 옮겨져요. 다시 클릭하면 취소돼요.</div>
+  <div class="seeds">${dots}</div>${T > 240 ? '<p class="muted">최근 240개만 그려요.</p>' : ""}
+  <p><button class="sub" onclick="resetCross()">이 교배 처음부터 다시</button></p></div>`;
+}
+const gv = g => g.match(/../g).join(" ");
+function gam(g, n) { let r = [[]]; for (let i = 0; i < n; i++) { const p = g.substr(2 * i, 2); r = r.flatMap(x => [[...x, p[0]], [...x, p[1]]]); } return r; }
+const mk = (x, y) => x.map((c, i) => [c, y[i]].sort((p, q) => (p === p.toUpperCase() ? 0 : 1) - (q === q.toUpperCase() ? 0 : 1)).join("")).join("");
+function punnett(pr, cum) {
+  const n = S.n, ga = gam(pr.a.g, n), gb = gam(pr.b.g, n), ks = keysOf(n), col = LC(n), cnt = {}; let tot = 0;
+  let t = `<div class="pw"><table class="pn"><tr><th></th>${ga.map(x => `<th>${x.join("")}</th>`).join("")}</tr>`;
+  gb.forEach(y => { t += `<tr><th>${y.join("")}</th>`; ga.forEach(x => { const c = mk(x, y), k = phKey(c, n); cnt[k] = (cnt[k] || 0) + 1; tot++;
+    t += `<td style="background:${col[ks.indexOf(k)]}26">${n < 3 ? seed(k, n, 24) + "<br>" : ""}<b>${gv(c)}</b></td>`; }); t += "</tr>"; });
+  t += "</table></div>";
+  const tc = ks.map(k => cnt[k] || 0), tm = Math.min(...tc.filter(v => v > 0)), ev = ks.map(k => cum[k] || 0), es = ev.reduce((s, v) => s + v, 0), em = Math.min(...ev.filter(v => v > 0));
+  const rows = ks.map((k, i) => `<tr><td>${seed(k, n, 22)} ${nameK(k, n)}</td><td>${tc[i]}칸 (비율 ${(tc[i] / tm).toFixed(1)})</td><td><b>${(tc[i] / tot * 100).toFixed(1)}%</b></td><td><b>${es ? (ev[i] / es * 100).toFixed(1) : "0.0"}%</b> (비율 ${isFinite(em) ? (ev[i] / em).toFixed(1) : "-"}, ${ev[i]}개)</td></tr>`).join("");
+  return t + `<div class="sub-h">이론값과 내 실험 비교</div><table><tr><th>겉모습</th><th>퍼넷 사각형</th><th>이론 퍼센트</th><th>내 실험 (씨앗 ${es}개)</th></tr>${rows}</table>
+  <div class="hint">씨앗을 더 많이 얻을수록 내 실험 값이 이론값에 가까워지는지 확인해 보세요.</div>`;
+}
+window.setVp = v => { S.vp = v; render(); };
+const GD = {
+  1:["부모(P)의 씨 모양은 각각 무엇이었나요? 첫 자손(F1)은 모두 어떤 모양이었나요? 이 결과로 볼 때 <b>우성</b>(겉으로 드러나는 형질)과 <b>열성</b>(가려지는 형질)은 각각 무엇이라고 생각하나요?",
+     "F1끼리 교배(자가수분)했더니 F2에서 사라졌던 모양이 다시 나타났나요? 씨앗을 많이 얻을수록 <b>우성과 열성의 비</b>는 어떤 값에 가까워지나요?",
+     "겉모습이 같은 우성 자손 중에도 자가수분 결과가 서로 다른 식물이 있었나요? 있다면 그 이유를 <b>생식세포가 만들어질 때 부모에게서 받은 유전자가 어떻게 되는지</b> 생각해서 설명해 보세요."],
+  2:["부모(P)의 씨 색깔은 각각 무엇이었나요? 첫 자손(F1)은 모두 어떤 색이었나요? 이 결과로 볼 때 <b>우성</b>(겉으로 드러나는 형질)과 <b>열성</b>(가려지는 형질)은 각각 무엇이라고 생각하나요?",
+     "F1끼리 교배(자가수분)했더니 F2에서 사라졌던 색이 다시 나타났나요? 씨앗을 많이 얻을수록 <b>우성과 열성의 비</b>는 어떤 값에 가까워지나요?",
+     "실험 1(씨 모양)의 결과와 같은 점은 무엇인가요? 여러 형질에서 같은 결과가 나온다면 어떤 규칙이 있다고 말할 수 있을까요?"],
+  3:["씨 모양과 씨 색깔에서 우성은 각각 무엇인가요? F1은 어떤 겉모습이었나요?",
+     "F2에서는 겉모습이 모두 몇 가지 나왔나요? 각각의 비는 어떤 값에 가까워지나요?",
+     "F2를 <b>모양만</b> 따로 세어 보고, <b>색깔만</b> 따로 세어 보세요. 각각의 비는 얼마인가요? 이 결과로 볼 때 모양 유전자와 색깔 유전자는 서로 어떤 관계라고 생각하나요?",
+     "만약 두 형질이 서로 영향을 주며 함께 움직인다면 F2 결과는 어떻게 달랐을까요?"],
+  4:["세 형질(씨 모양, 씨 색깔, 꽃 색)에서 우성은 각각 무엇인가요?",
+     "F2에서는 겉모습이 모두 몇 가지 나왔나요? 가장 많은 것과 가장 적은 것은 무엇인가요?",
+     "세 형질을 <b>하나씩 따로</b> 세어 보면 각각의 비는 얼마인가요? 실험 1~3의 결과와 무엇이 같은가요?",
+     "이 규칙을 이용하면 형질이 더 늘어나도 결과의 비를 미리 예측할 수 있을까요? 내 생각을 써 보세요."]};
+const guide = n => `<div class="guide"><b>생각해 볼 질문</b> <span class="muted">(번호를 붙여 답해 보세요. 정답이 아니어도 괜찮아요!)</span><ol>${GD[n].map(x => `<li>${x}</li>`).join("")}</ol></div>`;
+function nextBtns() {
+  const c = STEPS.filter(x => x.open() && !x.done() && x.id !== S.view).sort((a, b) => (a.n ? 1 : 0) - (b.n ? 1 : 0));
+  return c.map((x, i) => `<button class="${i ? "sub" : ""}" onclick="go('${x.id}')">${x.t}(으)로 가기</button>`).join(" ");
+}
+window.finishVer = () => { S.prog.ver[S.stage] = true; syncProg(); render(); toast("검증을 마쳤어요!"); const nb = document.getElementById("nextbox"); if (nb) nb.scrollIntoView({behavior:"smooth", block:"center"}); };
+function verify() {
+  const head = '<section class="sec s4" id="verify"><div class="sec-h">④ 결과 검증하기<small>내가 고른 식물의 유전자형을 확인하고, 퍼넷 사각형으로 내 실험 결과를 검증해요</small></div><div class="sec-b">';
+  if (!S.sub[S.stage]) return head + '<div class="hint">③에서 내가 발견한 규칙을 제출하면 열려요. 먼저 내 생각을 정리해 제출해 보세요.</div></div></section>';
+  const n = S.n, pks = Object.keys(S.pairs).filter(k => S.cum[k]), pk = pks.includes(S.vp) ? S.vp : pks[0];
+  const pl = S.plants.map(p => `<span class="plant">${seed(phKey(p.g, n), n, 26)} ${esc(p.label)} <b>${gv(p.g)}</b></span>`).join("");
+  let body = `<div class="sub-h">내 식물의 유전자형</div>${pl}<div class="sub-h">퍼넷 사각형으로 검증하기</div>`;
+  if (!pk) body += '<div class="hint">아직 교배 결과가 없어요. ①, ②에서 교배해 보세요.</div>';
+  else {
+    const opt = pks.map(k => { const q = S.pairs[k]; return `<option value="${k}" ${k === pk ? "selected" : ""}>${esc(q.a.label)} ${q.a.id === q.b.id ? "자가수분" : "× " + esc(q.b.label)}</option>`; }).join("");
+    body += `<label>검증할 교배<select onchange="setVp(this.value)">${opt}</select></label>${punnett(S.pairs[pk], S.cum[pk])}`;
+  }
+  const nb = nextBtns(), fin = S.prog.ver[S.stage] ? `<div class="hint" id="nextbox">✓ 이 실험의 검증을 마쳤어요. ${nb ? "다음으로 할 수 있는 단계를 골라 보세요." : "모든 단계를 마쳤어요!"}</div>${nb}` : pk ? '<p><button onclick="finishVer()">이 실험 검증 마치기</button></p>' : "";
+  return head + body + fin + "</div></section>";
+}
+function render() {
+  persist();
+  const n = S.stage, sub = S.sub[n], v = S.view;
+  const tabs = STEPS.map(st => { const o = st.open(); return `<button class="${st.id === v ? "on" : ""} ${o ? "" : "lock"}" onclick="go('${st.id}')">${st.t}<small>${!o ? "🔒 " : st.done() ? "✓ " : ""}${st.s}</small></button>`; }).join("");
+  const head = `<div class="top"><h1>완두콩 교배 실험실</h1><div class="who">${esc(S.code)}반 · ${esc(S.name)} <button class="sub" onclick="logout()">나가기</button></div></div>
+  ${sb ? "" : '<p class="warn">서버가 연결되지 않아 진행 상황이 이 기기에만 저장돼요. 선생님께는 전달되지 않아요.</p>'}<div class="tabs">${tabs}</div>`;
+  if (v === "qA" || v === "qB") { app.innerHTML = head + quizView(v[1]); return; }
+  app.innerHTML = head + `
+  <section class="sec s1"><div class="sec-h">① 부모 세대(P) 교배<small>순종 부모로 교배해서 첫 자손 씨앗을 얻어요</small></div><div class="sec-b"><div class="sub-h">부모 식물</div>${chips("P")}${ctrl("P")}${result("P")}</div></section>
+  <section class="sec s2" id="fzone"><div class="sec-h">② 자손 세대 교배 실험실<small>키운 자손 식물끼리, 또는 부모와 교배해요. 겉모습만 보고 속을 추리해 보세요</small></div><div class="sec-b"><div class="sub-h">내가 키운 식물</div>${chips("F")}${ctrl("F")}${result("F")}</div></section>
+  <section class="sec s3"><div class="sec-h">③ 내가 발견한 규칙 제출하기<small>아래 질문을 힌트 삼아 내가 발견한 규칙을 적어 제출해요</small></div><div class="sec-b">${guide(n)}<textarea id="note" rows="8" ${sub ? "readonly" : ""} oninput="setNote(this.value)" placeholder="위 질문에 번호를 붙여 답해 보세요. 예) 1. ...">${esc(S.notes[n] || "")}</textarea>
+  ${sub ? '<div class="hint">제출했어요! 아래 ④에서 유전자형과 퍼넷 사각형으로 확인해 보세요.</div>' : S.cf ? '<div class="hint">제출하면 수정할 수 없어요. 제출할까요?</div><button onclick="doSubmit()">네, 제출할게요</button> <button class="sub" onclick="cancelSubmit()">더 고칠게요</button>' : '<p><button onclick="submitNote()">메모 제출하기</button> <span class="muted">제출하면 수정할 수 없어요.</span></p>'}</div></section>
+  ${verify()}`;
+}
+window.setNote = v => { S.notes[S.stage] = v; };
+window.submitNote = () => { const t = (S.notes[S.stage] || "").trim(); if (t.length < 10) return toast("메모를 조금 더 자세히 써 주세요. (10자 이상)"); S.cf = true; render(); };
+window.cancelSubmit = () => { S.cf = false; render(); };
+window.doSubmit = async () => {
+  const t = (S.notes[S.stage] || "").trim(); S.cf = false;
+  await send("note", {stage:S.stage, text:t}); S.sub[S.stage] = true; syncProg(); render();
+  document.getElementById("verify").scrollIntoView({behavior:"smooth"});
+};
+function toast(t) {
+  let d = document.getElementById("toast");
+  if (!d) { d = document.createElement("div"); d.id = "toast"; d.setAttribute("role", "alert"); document.body.appendChild(d); }
+  d.textContent = t; d.className = "show"; clearTimeout(toast.t); toast.t = setTimeout(() => { d.className = ""; }, 4000);
+}
+window.startStage = startStage;
+
+const hp = s => { let h = 5381; for (const c of s) h = ((h << 5) + h + c.charCodeAt(0)) | 0; return "h" + h; };
+function qrBox() {
+  const url = SITE_URL || (/^https?:/.test(location.protocol) ? location.href.split("#")[0].split("?")[0] : "");
+  if (url && window.qrcode) {
+    try {
+      const q = qrcode(0, "M"); q.addData(url); q.make();
+      const n = q.getModuleCount(); let d = "";
+      for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += `M${c},${r}h1v1h-1z`;
+      return `<div class="qr"><svg viewBox="-2 -2 ${n + 4} ${n + 4}" role="img" aria-label="접속 QR 코드" shape-rendering="crispEdges"><rect x="-2" y="-2" width="${n + 4}" height="${n + 4}" fill="#fff"/><path d="${d}" fill="#17231b"/></svg><b>스캔해서 접속</b></div>`;
+    } catch (e) {}
+  }
+  return `<div class="qr off"><b>접속 QR 코드</b><span>인터넷 주소로 올리면 여기에 QR이 나타나요</span></div>`;
+}
+function login() {
+  S.stage = 0; S.name = ""; S.tr = [0, 1, 2]; TR = TRALL;
+  let sv = {}; try { sv = JSON.parse(localStorage.getItem("mendel-last") || "{}"); } catch (e) {}
+  const deco = ["000", "010", "100", "110", "001", "111"].map(k => seed(k, 3, 56)).join("");
+  app.innerHTML = `<div class="hero">${qrBox()}<span class="unit">V. 생식과 유전 › 2. 유전</span><h1>완두콩 교배 실험실</h1><p>멘델처럼 완두를 직접 교배하면서 유전의 규칙을 찾아보아요!</p><div class="deco">${deco}</div></div>
+  <div class="flow"><span>교배하기</span>→<span>관찰하기</span>→<span>규칙 찾기</span>→<span>퍼넷 사각형으로 검증</span></div>
+  <div class="card login"><h2>내 계정으로 시작하기</h2><div class="row"><label>반 코드<input id="code" value="${esc(sv.code || "")}" placeholder="예: 3-2"></label><label>이름<input id="nm" value="${esc(sv.name || "")}"></label><label>비밀번호(숫자 4자리)<input id="pin" type="password" inputmode="numeric" maxlength="4"></label></div>
+  <p class="muted">처음이면 새 계정이 만들어져요. 다음 시간에 같은 정보로 들어오면 이어서 할 수 있어요. 비밀번호를 잊지 마세요!</p><p><button onclick="enter()">시작하기</button></p></div>`;
+}
+window.enter = async () => {
+  const code = $("#code").value.trim(), name = $("#nm").value.trim(), pin = $("#pin").value.trim();
+  if (!code || !name) return toast("반 코드와 이름을 입력하세요.");
+  if (!/^\d{4}$/.test(pin)) return toast("비밀번호는 숫자 4자리예요.");
+  S.code = code; S.name = name; S.stage = 0; const ph = hp(code + "|" + name + "|" + pin); let acc = null;
+  try { acc = JSON.parse(localStorage.getItem(AK()) || "null"); localStorage.setItem("mendel-last", JSON.stringify({code, name})); } catch (e) {}
+  if (!acc && sb) {
+    const {data} = await sb.from("logs").select("payload").eq("class_code", code).eq("student", name).eq("kind", "progress").order("created_at", {ascending:false}).limit(1);
+    if (data && data[0]) { const p = data[0].payload; acc = {pin:p.pin, prog:{sub:p.sub || {}, ver:p.ver || {}, quiz:p.quiz || {}, notes:{}}, saved:{}, stage:1}; }
+  }
+  if (acc && acc.pin !== ph) return toast("비밀번호가 맞지 않아요.");
+  S.pin = ph; S.prog = acc ? acc.prog : {sub:{}, ver:{}, quiz:{}, notes:{}}; S.prog.notes = S.prog.notes || {};
+  S.sub = S.prog.sub; S.notes = S.prog.notes; S.saved = acc ? acc.saved : {};
+  startStage(acc && acc.stage ? acc.stage : 1);
+};
+window.logout = () => { persist(); login(); };
+
+// ---- 교사용 (주소 뒤에 ?teacher 를 붙여 접속) ----
+function teacher() {
+  app.innerHTML = `<h1>교사용 화면</h1><div class="card row"><label>비밀번호<input id="pin" type="password"></label><button onclick="tpin()">들어가기</button></div>`;
+}
+window.tpin = () => {
+  if ($("#pin").value !== TEACHER_PIN) return toast("비밀번호가 맞지 않아요.");
+  app.innerHTML = `<h1>교사용 화면</h1><div class="card row"><label>반 코드<input id="tc" placeholder="예: 3-2"></label><button onclick="watch()">불러오기</button></div><div id="board"></div>`;
+};
+let chan = null;
+window.watch = async () => {
+  if (!sb) return toast("서버 설정이 필요해요.");
+  const code = $("#tc").value.trim(); if (chan) sb.removeChannel(chan);
+  let rows = [];
+  const draw = () => {
+    const by = {}; rows.forEach(r => (by[r.student] = by[r.student] || []).push(r));
+    $("#board").innerHTML = Object.keys(by).sort().map(s => {
+      const R = by[s], cr = {1:0, 2:0, 3:0, 4:0}; R.filter(r => r.kind === "cross").forEach(r => { cr[r.payload.stage]++; });
+      const pgs = R.filter(r => r.kind === "progress"), pg = pgs.length ? pgs[pgs.length - 1].payload : {}, sub = pg.sub || {}, ver = pg.ver || {}, qz = pg.quiz || {}, nt = R.filter(r => r.kind === "note");
+      const q = id => qz[id] && qz[id].done ? `제출 (${qz[id].score}/2) · 답: ${esc(qz[id].ans.map(a => a.join(", ")).join(" / "))}` : "·";
+      return `<div class="card"><h2>${esc(s)}</h2><table><tr><th>단계</th><th>교배</th><th>메모 제출</th><th>검증</th></tr>${[1, 2, 3, 4].map(n => `<tr><th>실험 ${n}</th><td>${cr[n]}회</td><td>${sub[n] ? "✓" : "·"}</td><td>${ver[n] ? "✓" : "·"}</td></tr>`).join("")}<tr><th>형성평가 ①</th><td colspan="3">${q("A")}</td></tr><tr><th>형성평가 ②</th><td colspan="3">${q("B")}</td></tr></table>${nt.map(r => `<p><b>실험${r.payload.stage} 메모:</b> ${esc(r.payload.text)}</p>`).join("")}</div>`;
+    }).join("") || '<p class="muted">아직 기록이 없어요.</p>';
+  };
+  const {data} = await sb.from("logs").select("*").eq("class_code", code).order("created_at"); rows = data || []; draw();
+  chan = sb.channel("logs-" + code).on("postgres_changes", {event:"INSERT", schema:"public", table:"logs", filter:"class_code=eq." + code}, p => { rows.push(p.new); draw(); }).subscribe();
+};
+location.search.includes("teacher") ? teacher() : login();
+</script></body></html>
