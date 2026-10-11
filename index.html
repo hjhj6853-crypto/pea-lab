@@ -48,6 +48,7 @@ table{border-collapse:collapse;width:100%;background:#fff}td,th{border:1px solid
 .bar{display:block;margin:12px 0}.bh{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.bar .nm{flex:1 1 auto;width:auto;min-width:0}.bar .pc{min-width:0}.trk{height:16px;background:#e3eadf;border-radius:8px;overflow:hidden;margin-top:6px}.trk i{display:block;height:100%;min-width:0;border-radius:0}.guide{background:#eef4ff;border:2px solid #9db8e8;border-radius:10px;padding:10px 16px 6px;margin:8px 0 14px}.guide ol{margin:8px 0;padding-left:22px}.guide li{margin:6px 0}
 .hero{background:var(--pod);color:#fff;border-radius:16px;padding:26px 18px 18px;text-align:center;margin-top:8px}.unit{display:inline-block;background:#ffffff26;border:2px solid #ffffff80;border-radius:999px;padding:4px 18px;font-weight:700}.hero h1{font-size:2.4rem;margin:.35em 0 .1em}.hero p{margin:0 0 4px;opacity:.95}.deco{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;background:#fff;border-radius:12px;padding:14px;margin-top:16px}.flow{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;align-items:center;margin:16px 0;font-weight:700}.flow span{background:#fff;border:2px solid var(--line);border-radius:999px;padding:4px 14px}.card.login{max-width:640px;margin:0 auto}.card.login input{padding:12px;font-size:1.1rem}
 .hero{position:relative}.qr{position:absolute;top:12px;right:12px;width:116px;background:#fff;color:var(--ink);border-radius:10px;padding:6px 6px 4px;text-align:center;font-size:.8rem;line-height:1.3}.qr svg{display:block;width:100%;height:auto}.qr b{display:block;margin-top:2px}.qr.off{padding:10px 8px;font-size:.78rem}.qr.off span{display:block;color:var(--sub);margin-top:2px}@media(max-width:620px){.qr{position:static;margin:14px auto 0}}
+.qa{background:#eef4ff;border:2px solid #9db8e8;border-radius:10px;padding:10px 14px;margin:10px 0}.qa .qt{margin-bottom:8px}.qa textarea{background:#fff}.qd{border:2px solid var(--line);border-radius:10px;margin:12px 0;padding:8px 14px;background:#fff}.qd summary{cursor:pointer;font-size:1.05rem;padding:4px 0}.ans{border-top:1px solid var(--line);padding:8px 0}.ans b{display:inline-block;min-width:90px;color:var(--teal)}
 </style></head><body><main id="app"></main>
 <script>
 // ▼ Supabase 프로젝트 설정 (Project Settings > API 에서 복사)
@@ -131,12 +132,12 @@ function quizView(id) {
   const body = Q.qs.map((q, i) => { const parts = q.t.split("{}"), ok = d && q.ok(st.ans[i]);
     return `<div class="q ${d ? (ok ? "ok" : "no") : ""}"><b>${i + 1}.</b> ${parts.map((p, j) => esc(p) + (j < parts.length - 1 ? `<input class="bl" ${d ? "readonly" : ""} value="${esc(st.ans[i][j])}" oninput="qa('${id}',${i},${j},this.value)">` : "")).join("")}${d ? `<div class="muted">${ok ? "✓ 정답이에요!" : "✗ 정답: <b>" + esc(q.ans) + "</b>"}</div>` : ""}</div>`; }).join("");
   const nb = nextBtns();
-  return `<section class="sec s3"><div class="sec-h">${Q.t}<small>빈칸을 모두 채우고 제출하세요</small></div><div class="sec-b">${body}${d ? `<div class="hint">제출을 마쳤어요. ${nb ? "다음으로 할 수 있는 단계를 골라 보세요." : "모든 단계를 마쳤어요!"}</div>${nb}` : `<p><button onclick="submitQuiz('${id}')">제출하기</button></p>`}</div></section>`;
+  return `<section class="sec s3"><div class="sec-h">${Q.t}<small>빈칸을 모두 채우고 제출하세요</small></div><div class="sec-b">${body}${d ? `<div class="hint">🎉 축하해요! 형성평가 제출을 마쳤어요. ${nb ? "다음으로 할 수 있는 단계를 골라 보세요." : "모든 단계를 마쳤어요!"}</div>${nb}` : `<p><button onclick="submitQuiz('${id}')">제출하기</button></p>`}</div></section>`;
 }
 window.qa = (id, i, j, v) => { S.prog.quiz[id].ans[i][j] = v; };
 window.submitQuiz = id => {
   const st = S.prog.quiz[id]; if (st.ans.some(r => r.some(x => !x.trim()))) return toast("빈칸을 모두 채워 주세요.");
-  st.done = true; st.score = QZ[id].qs.filter((q, i) => q.ok(st.ans[i])).length; syncProg(); render();
+  st.done = true; st.score = QZ[id].qs.filter((q, i) => q.ok(st.ans[i])).length; syncProg(); render(); try { confetti(); } catch (e) {}
 };
 async function send(kind, payload) {
   if (!sb) return;
@@ -262,18 +263,42 @@ function render() {
   app.innerHTML = head + `
   <section class="sec s1"><div class="sec-h">① 부모 세대(P) 교배<small>순종 부모로 교배해서 첫 자손 씨앗을 얻어요</small></div><div class="sec-b"><div class="sub-h">부모 식물</div>${chips("P")}${ctrl("P")}${result("P")}</div></section>
   <section class="sec s2" id="fzone"><div class="sec-h">② 자손 세대 교배 실험실<small>키운 자손 식물끼리, 또는 부모와 교배해요. 겉모습만 보고 속을 추리해 보세요</small></div><div class="sec-b"><div class="sub-h">내가 키운 식물</div>${chips("F")}${ctrl("F")}${result("F")}</div></section>
-  <section class="sec s3"><div class="sec-h">③ 내가 발견한 규칙 제출하기<small>아래 질문을 힌트 삼아 내가 발견한 규칙을 적어 제출해요</small></div><div class="sec-b">${guide(n)}<textarea id="note" rows="8" ${sub ? "readonly" : ""} oninput="setNote(this.value)" placeholder="위 질문에 번호를 붙여 답해 보세요. 예) 1. ...">${esc(S.notes[n] || "")}</textarea>
+  <section class="sec s3"><div class="sec-h">③ 내가 발견한 규칙 제출하기<small>아래 질문에 하나씩 답하면서 내가 발견한 규칙을 적어 제출해요</small></div><div class="sec-b">${qaBoxes(n, sub)}
   ${sub ? '<div class="hint">제출했어요! 아래 ④에서 유전자형과 퍼넷 사각형으로 확인해 보세요.</div>' : S.cf ? '<div class="hint">제출하면 수정할 수 없어요. 제출할까요?</div><button onclick="doSubmit()">네, 제출할게요</button> <button class="sub" onclick="cancelSubmit()">더 고칠게요</button>' : '<p><button onclick="submitNote()">메모 제출하기</button> <span class="muted">제출하면 수정할 수 없어요.</span></p>'}</div></section>
   ${verify()}`;
 }
-window.setNote = v => { S.notes[S.stage] = v; };
-window.submitNote = () => { const t = (S.notes[S.stage] || "").trim(); if (t.length < 10) return toast("메모를 조금 더 자세히 써 주세요. (10자 이상)"); S.cf = true; render(); };
+function ansArr() { let a = S.notes[S.stage]; if (!Array.isArray(a)) a = S.notes[S.stage] = a ? [a] : []; return a; }
+function qaBoxes(n, locked) {
+  const a = ansArr();
+  return `<div class="muted">질문마다 답을 적어 보세요. 정답이 아니어도 괜찮아요!</div>` + GD[n].map((q, i) => `<div class="qa"><div class="qt"><b>질문 ${i + 1}.</b> ${q}</div><textarea rows="3" ${locked ? "readonly" : ""} oninput="setAns(${i},this.value)" placeholder="질문 ${i + 1}에 대한 내 생각을 적어 보세요.">${esc(a[i] || "")}</textarea></div>`).join("");
+}
+window.setAns = (i, v) => { ansArr()[i] = v; };
+const ansList = () => GD[S.stage].map((_, i) => (ansArr()[i] || "").trim());
+window.submitNote = () => {
+  const a = ansList(); if (a.some(x => !x)) return toast("모든 질문에 답을 적어 주세요.");
+  if (a.join("").length < 10) return toast("조금 더 자세히 적어 주세요.");
+  S.cf = true; render();
+};
 window.cancelSubmit = () => { S.cf = false; render(); };
 window.doSubmit = async () => {
-  const t = (S.notes[S.stage] || "").trim(); S.cf = false;
-  await send("note", {stage:S.stage, text:t}); S.sub[S.stage] = true; syncProg(); render();
+  const a = ansList(); S.cf = false;
+  await send("note", {stage:S.stage, answers:a, text:a.map((x, i) => `${i + 1}. ${x}`).join("\n")}); S.sub[S.stage] = true; syncProg(); render();
   document.getElementById("verify").scrollIntoView({behavior:"smooth"});
 };
+function confetti() {
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const c = document.createElement("canvas"); c.style.cssText = "position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:99";
+  c.width = innerWidth; c.height = innerHeight; document.body.appendChild(c);
+  const x = c.getContext("2d"), cols = ["#e6c53f", "#7fb84a", "#8e5bd0", "#e08a00", "#1f6fb5", "#c2185b", "#ffffff"], P = [];
+  const burst = (ox, oy, n) => { for (let i = 0; i < n; i++) { const a = Math.random() * 6.283, s = 4 + Math.random() * 9; P.push({x:ox, y:oy, vx:Math.cos(a) * s, vy:Math.sin(a) * s - 5, w:6 + Math.random() * 6, h:4 + Math.random() * 5, r:Math.random() * 6, vr:(Math.random() - .5) * .4, c:cols[i % cols.length], life:0}); } };
+  burst(c.width * .25, c.height * .55, 90); burst(c.width * .75, c.height * .55, 90); setTimeout(() => burst(c.width * .5, c.height * .4, 120), 350);
+  const t0 = performance.now();
+  (function f(t) {
+    x.clearRect(0, 0, c.width, c.height);
+    P.forEach(p => { p.vy += .22; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr; p.life++; x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.globalAlpha = Math.max(0, 1 - p.life / 170); x.fillStyle = p.c; x.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); x.restore(); });
+    if (t - t0 < 3300) requestAnimationFrame(f); else c.remove();
+  })(t0);
+}
 function toast(t) {
   let d = document.getElementById("toast");
   if (!d) { d = document.createElement("div"); d.id = "toast"; d.setAttribute("role", "alert"); document.body.appendChild(d); }
@@ -328,22 +353,79 @@ window.tpin = () => {
   if ($("#pin").value !== TEACHER_PIN) return toast("비밀번호가 맞지 않아요.");
   app.innerHTML = `<h1>교사용 화면</h1><div class="card row"><label>반 코드<input id="tc" placeholder="예: 3-2"></label><button onclick="watch()">불러오기</button></div><div id="board"></div>`;
 };
-let chan = null;
+let chan = null, TS = 1, TROWS = [], tq = 0;
+window.tstage = n => { TS = n; tdraw(); };
+const tsoon = () => { if (!tq) tq = setTimeout(() => { tq = 0; tdraw(); }, 300); };
+const stN = s => TRS[s].length, pn = (s, k) => [...k].map((d, i) => TRALL[TRS[s][i]].ph[d]).join("·");
+const tcol = (s, n) => n === 1 ? (s === 2 ? ["#c9a22a", "#5a9436"] : ["#2b5d34", "#7a5a86"]) : n === 2 ? PAL.slice(0, 4) : PAL;
+const TY = {PP:"부모 × 부모", F1:"자손 1세대끼리 (자가수분 포함)", OT:"그 외 교배 (자손 2세대 이상, 부모와 교배 등)"};
+const tyOf = p => { const a = p.a || "", b = p.b || "", P = x => x.startsWith("부모"), F = x => /^자손 1세대 \d+호/.test(x); return P(a) && P(b) ? "PP" : F(a) && F(b) ? "F1" : "OT"; };
+function agg(s) {
+  const out = {};
+  TROWS.filter(r => r.kind === "cross" && r.payload.stage === s).forEach(r => {
+    const t = tyOf(r.payload), o = out[t] = out[t] || {cnt:{}, st:new Set(), n:0, x:0, hist:[]};
+    o.st.add(r.student); o.x++;
+    for (const k in r.payload.counts) { o.cnt[k] = (o.cnt[k] || 0) + r.payload.counts[k]; o.n += r.payload.counts[k]; }
+    o.hist.push({n:o.n, c:Object.assign({}, o.cnt)});
+  });
+  return out;
+}
+function tTrend(s, o) {
+  const n = stN(s), ks = keysOf(n), col = tcol(s, n), W = 480, Ht = 240, l = 40, r = 14, t = 12, b = 40, mx = Math.max(100, o.n);
+  const X = v => l + Math.log10(Math.max(v, 1)) / Math.log10(mx) * (W - l - r), Y = v => t + (100 - v) / 100 * (Ht - t - b);
+  let g = [0, 25, 50, 75, 100].map(v => `<line x1="${l}" x2="${W - r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#dfe7da"/><text x="${l - 6}" y="${Y(v) + 4}" text-anchor="end" font-size="11" fill="#5d6d62">${v}%</text>`).join("");
+  g += [1, 10, 100, 1000, 10000, 100000].filter(v => v <= mx).map(v => `<line x1="${X(v)}" x2="${X(v)}" y1="${t}" y2="${Ht - b}" stroke="#eef2eb"/><text x="${X(v)}" y="${Ht - b + 15}" text-anchor="middle" font-size="11" fill="#5d6d62">${v}개</text>`).join("");
+  g += `<text x="${(l + W - r) / 2}" y="${Ht - 6}" text-anchor="middle" font-size="12" fill="#5d6d62">반 전체 누적 씨앗 수 (눈금은 10배씩)</text>`;
+  const ln = ks.map((k, i) => `<polyline points="${o.hist.map(h => X(h.n).toFixed(1) + "," + Y((h.c[k] || 0) / h.n * 100).toFixed(1)).join(" ")}" fill="none" stroke="${col[i]}" stroke-width="2.5" stroke-linejoin="round"/>`).join("");
+  return `<div class="sub-h">씨앗이 늘어남에 따라 비율이 변하는 모습</div><div class="chart"><svg viewBox="0 0 ${W} ${Ht}" role="img" aria-label="누적 씨앗 수에 따른 비율 변화">${g}${ln}</svg><div style="padding:0 8px 6px">${ks.map((k, i) => `<span style="color:${col[i]};font-weight:600;margin-right:14px">● ${pn(s, k)}</span>`).join("")}</div></div>`;
+}
+function aggCard(s, t, o) {
+  const n = stN(s), ks = keysOf(n), col = tcol(s, n), v = ks.map(k => o.cnt[k] || 0), m = Math.min(...v.filter(x => x > 0)), ok = isFinite(m);
+  const bars = ks.map((k, i) => { const p = o.n ? v[i] / o.n * 100 : 0;
+    return `<div class="bar"><div class="bh"><span class="nm">${pn(s, k)}</span><span class="pc">${p.toFixed(1)}%</span><span class="chip">비율 ${ok ? fr(v[i] / m) : "-"}</span><span class="muted">${v[i]}개</span></div><div class="trk"><i style="width:${p}%;background:${col[i]}"></i></div></div>`; }).join("");
+  return `<div class="sub-h">${TY[t]}</div><p class="muted">학생 ${o.st.size}명 · 교배 ${o.x}회 · 씨앗 ${o.n}개</p>${bars}${ok ? `<div class="sum">비율 = ${v.map(x => fr(x / m)).join(" : ")}<div class="muted">(위에 나온 순서대로)</div></div>` : ""}${t === "F1" && o.hist.length > 1 ? tTrend(s, o) : ""}`;
+}
+function notesSec(s) {
+  const by = {}; TROWS.filter(r => r.kind === "note" && r.payload.stage === s).forEach(r => { by[r.student] = r.payload; });
+  const names = Object.keys(by).sort();
+  if (!names.length) return '<p class="muted">아직 제출한 학생이 없어요.</p>';
+  return `<p class="muted">제출한 학생 ${names.length}명</p>` + GD[s].map((q, i) => `<details open class="qd"><summary><b>질문 ${i + 1}.</b> ${q}</summary>${names.map(nm => { const p = by[nm], a = p.answers ? p.answers[i] : (i === 0 ? p.text : ""); return `<div class="ans"><b>${esc(nm)}</b> ${esc(a || "-")}</div>`; }).join("")}</details>`).join("");
+}
+function progSec() {
+  const by = {}; TROWS.forEach(r => (by[r.student] = by[r.student] || []).push(r));
+  const names = Object.keys(by).sort(); if (!names.length) return '<p class="muted">아직 기록이 없어요.</p>';
+  const ex = (pg, cr, n) => `${cr[n]}회 · 제출${(pg.sub || {})[n] ? "✓" : "·"} · 검증${(pg.ver || {})[n] ? "✓" : "·"}`;
+  const rows = names.map(nm => {
+    const R = by[nm], cr = {1:0, 2:0, 3:0, 4:0}; R.filter(r => r.kind === "cross").forEach(r => { cr[r.payload.stage]++; });
+    const ps = R.filter(r => r.kind === "progress"), pg = ps.length ? ps[ps.length - 1].payload : {}, qz = pg.quiz || {}, q = id => qz[id] && qz[id].done ? `${qz[id].score}/2` : "·";
+    return `<tr><th>${esc(nm)}</th><td>${ex(pg, cr, 1)}</td><td>${ex(pg, cr, 2)}</td><td>${q("A")}</td><td>${ex(pg, cr, 3)}</td><td>${q("B")}</td><td>${ex(pg, cr, 4)}</td></tr>`; }).join("");
+  return `<div class="pw"><table><tr><th>학생</th><th>실험 1</th><th>실험 2</th><th>형성평가 ①</th><th>실험 3</th><th>형성평가 ②</th><th>실험 4</th></tr>${rows}</table></div>`;
+}
+function quizSec() {
+  const P = {}; TROWS.filter(r => r.kind === "progress").forEach(r => { P[r.student] = r.payload; });
+  const names = Object.keys(P).sort(); if (!names.length) return '<p class="muted">아직 기록이 없어요.</p>';
+  return ["A", "B"].map(id => `<div class="sub-h">${QZ[id].t}</div><div class="pw"><table><tr><th>학생</th>${QZ[id].qs.map((q, i) => `<th>문항 ${i + 1}</th>`).join("")}</tr>${names.map(nm => { const st = (P[nm].quiz || {})[id];
+    return `<tr><th>${esc(nm)}</th>${QZ[id].qs.map((q, i) => `<td>${st && st.done ? (q.ok(st.ans[i]) ? "✓ " : "✗ ") + esc(st.ans[i].join(", ")) : "·"}</td>`).join("")}</tr>`; }).join("")}</table></div>`).join("");
+}
+function tdraw() {
+  const s = TS, A = agg(s), tabs = [1, 2, 3, 4].map(i => `<button class="${i === s ? "on" : ""}" onclick="tstage(${i})">실험 ${i}</button>`).join("");
+  $("#board").innerHTML = `<div class="tabs">${tabs}</div>
+  <section class="sec s1"><div class="sec-h">반 전체 교배 결과<small>모든 학생의 결과를 합쳐서 보여줘요 (실험 ${s})</small></div><div class="sec-b">${["PP", "F1", "OT"].map(t => A[t] ? aggCard(s, t, A[t]) : `<div class="sub-h">${TY[t]}</div><p class="muted">아직 기록이 없어요.</p>`).join("")}</div></section>
+  <section class="sec s2"><div class="sec-h">내가 발견한 규칙 제출<small>실험 ${s}의 질문별로 학생들의 답안을 한꺼번에 봐요</small></div><div class="sec-b">${notesSec(s)}</div></section>
+  <section class="sec s3"><div class="sec-h">학생별 진행 현황</div><div class="sec-b">${progSec()}</div></section>
+  <section class="sec s4"><div class="sec-h">형성평가 답안</div><div class="sec-b">${quizSec()}</div></section>`;
+}
 window.watch = async () => {
   if (!sb) return toast("서버 설정이 필요해요.");
   const code = $("#tc").value.trim(); if (chan) sb.removeChannel(chan);
-  let rows = [];
-  const draw = () => {
-    const by = {}; rows.forEach(r => (by[r.student] = by[r.student] || []).push(r));
-    $("#board").innerHTML = Object.keys(by).sort().map(s => {
-      const R = by[s], cr = {1:0, 2:0, 3:0, 4:0}; R.filter(r => r.kind === "cross").forEach(r => { cr[r.payload.stage]++; });
-      const pgs = R.filter(r => r.kind === "progress"), pg = pgs.length ? pgs[pgs.length - 1].payload : {}, sub = pg.sub || {}, ver = pg.ver || {}, qz = pg.quiz || {}, nt = R.filter(r => r.kind === "note");
-      const q = id => qz[id] && qz[id].done ? `제출 (${qz[id].score}/2) · 답: ${esc(qz[id].ans.map(a => a.join(", ")).join(" / "))}` : "·";
-      return `<div class="card"><h2>${esc(s)}</h2><table><tr><th>단계</th><th>교배</th><th>메모 제출</th><th>검증</th></tr>${[1, 2, 3, 4].map(n => `<tr><th>실험 ${n}</th><td>${cr[n]}회</td><td>${sub[n] ? "✓" : "·"}</td><td>${ver[n] ? "✓" : "·"}</td></tr>`).join("")}<tr><th>형성평가 ①</th><td colspan="3">${q("A")}</td></tr><tr><th>형성평가 ②</th><td colspan="3">${q("B")}</td></tr></table>${nt.map(r => `<p><b>실험${r.payload.stage} 메모:</b> ${esc(r.payload.text)}</p>`).join("")}</div>`;
-    }).join("") || '<p class="muted">아직 기록이 없어요.</p>';
-  };
-  const {data} = await sb.from("logs").select("*").eq("class_code", code).order("created_at"); rows = data || []; draw();
-  chan = sb.channel("logs-" + code).on("postgres_changes", {event:"INSERT", schema:"public", table:"logs", filter:"class_code=eq." + code}, p => { rows.push(p.new); draw(); }).subscribe();
+  let rows = [], from = 0;
+  for (;;) {
+    const {data, error} = await sb.from("logs").select("*").eq("class_code", code).order("created_at").range(from, from + 999);
+    if (error) return toast("기록을 불러오지 못했어요.");
+    rows = rows.concat(data || []); if (!data || data.length < 1000) break; from += 1000;
+  }
+  TROWS = rows; tdraw();
+  chan = sb.channel("logs-" + code).on("postgres_changes", {event:"INSERT", schema:"public", table:"logs", filter:"class_code=eq." + code}, p => { TROWS.push(p.new); tsoon(); }).subscribe();
 };
 location.search.includes("teacher") ? teacher() : login();
 </script></body></html>
