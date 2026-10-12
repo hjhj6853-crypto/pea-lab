@@ -68,6 +68,9 @@ table{border-collapse:collapse;width:100%;background:#fff}td,th{border:1px solid
 @media(prefers-reduced-motion:reduce){.sd.new,.res.flash,.ph1,.ph2{animation:none!important}}
 @media(pointer:coarse){.sd svg{width:44px;height:44px}.plant svg{width:34px;height:34px}}
 .lnk{cursor:pointer;text-decoration:underline;color:var(--teal)}html.big{font-size:125%}html.big body{font-size:23px}html.big .hide-big{display:none}
+.glbtn{width:46px;height:46px;min-height:0;padding:0;margin:0;border-radius:50%;font-size:1.35rem;line-height:1;left:12px;bottom:12px;opacity:.92}.glp{bottom:66px;left:12px}
+.msbtn{position:fixed;left:12px;bottom:66px;z-index:50;width:46px;height:46px;min-height:0;padding:0;margin:0;border-radius:50%;font-size:1.3rem;line-height:1;background:#e6c53f;color:#3a2e00;border-color:#c9a22a;box-shadow:0 2px 8px #0003;opacity:.96}.msbtn.full{background:#7fb84a;color:#fff;border-color:#5a9436}.msbtn .mb{position:absolute;right:-8px;top:-8px;background:#17231b;color:#fff;border-radius:999px;font-size:.72rem;font-weight:800;padding:1px 7px;line-height:1.35}
+.msp{position:fixed;left:12px;bottom:120px;z-index:50;width:min(380px,calc(100vw - 24px));background:#fff;border:3px solid var(--pea);border-radius:14px;padding:12px 16px;box-shadow:0 4px 16px #0004}.msp ol{list-style:none;padding:0;margin:8px 0}.msp li{margin:6px 0}.msp li.ok{color:#2b6b36}.mbar{height:12px;background:#e3eadf;border-radius:6px;overflow:hidden;margin-top:8px}.mbar i{display:block;height:100%;background:#7fb84a}
 </style></head><body><main id="app"></main>
 <script>
 // ▼ Supabase 프로젝트 설정 (Project Settings > API 에서 복사)
@@ -190,8 +193,14 @@ const GL = [["형질", "생물이 가지는 모양, 색깔 같은 특징이에�
   ["대립유전자", "한 형질을 결정하는 한 쌍의 유전자예요. 알파벳 대문자는 우성, 소문자는 열성을 나타내요. (R과 r)"],
   ["유전자형", "형질을 결정하는 유전자 구성을 알파벳으로 나타낸 거예요. (RR, Rr, rr)"], ["표현형", "겉으로 드러나는 형질이에요. (둥근 완두, 주름진 완두)"],
   ["생식세포", "자손에게 유전자를 전달하는 세포예요. (정자, 난자, 꽃가루, 밑씨)"], ["퍼넷 사각형", "부모의 생식세포를 가로와 세로에 놓고, 자손의 유전자형을 한눈에 예상하는 표예요."]];
-window.toggleGl = () => { S.gl = !S.gl; render(); };
-const glossary = () => `<button class="glbtn" onclick="toggleGl()">📖 용어 풀이</button>${S.gl ? `<aside class="glp"><div class="glh"><b>📖 용어 풀이</b><button class="sub" onclick="toggleGl()">닫기</button></div>${GL.map(g => `<details><summary>${g[0]}</summary><p>${g[1]}</p></details>`).join("")}<p class="muted">법칙의 이름은 규칙을 직접 찾아본 뒤에 배워요!</p></aside>` : ""}`;
+window.toggleGl = () => { S.gl = !S.gl; if (S.gl) S.ms = false; render(); };
+window.toggleMs = () => { S.ms = !S.ms; if (S.ms) S.gl = false; render(); };
+const glossary = () => `<button class="glbtn" aria-label="용어 풀이" title="용어 풀이" onclick="toggleGl()">📖</button>${S.gl ? `<aside class="glp"><div class="glh"><b>📖 용어 풀이</b><button class="sub" onclick="toggleGl()">닫기</button></div>${GL.map(g => `<details><summary>${g[0]}</summary><p>${g[1]}</p></details>`).join("")}<p class="muted">법칙의 이름은 규칙을 직접 찾아본 뒤에 배워요!</p></aside>` : ""}`;
+function msFloat() {
+  if (!/^e\d$/.test(S.view || "")) return "";
+  const M = missions(), c = M.filter(m => m.ok).length, all = c === M.length;
+  return `<button class="msbtn ${all ? "full" : ""}" aria-label="미션 진행도 ${c}/${M.length}" title="미션 진행도" onclick="toggleMs()">${all ? "✅" : "🎯"}<span class="mb">${c}/${M.length}</span></button>${S.ms ? `<aside class="msp"><div class="glh"><b>🎯 미션 진행도 ${c}/${M.length}</b><button class="sub" onclick="toggleMs()">닫기</button></div><div class="mbar"><i style="width:${c / M.length * 100}%"></i></div><ol>${M.map(m => `<li class="${m.ok ? "ok" : ""}">${m.ok ? "✅" : "⬜"} ${m.t}${m.now !== undefined && !m.ok ? ` <span class="muted">(지금 ${m.now}/${MIN[S.stage]}개)</span>` : ""}</li>`).join("")}</ol></aside>` : ""}`;
+}
 function finView() {
   const sd = Object.values(S.saved || {}), seeds = sd.reduce((s, v) => s + Object.values(v.cum || {}).reduce((x, c) => x + Object.values(c).reduce((a, b) => a + b, 0), 0), 0);
   const q = id => { const st = S.prog.quiz[id]; return st ? QZ[id].qs.filter((x, i) => x.ok(st.ans[i])).length + "/" + QZ[id].qs.length : "-"; };
@@ -411,8 +420,10 @@ function render() {
     + sec("s3", "s3", "③ 내가 발견한 규칙 제출하기", isCol("s3") ? "미션 ①~③을 마치면 열려요 (눌러서 미리 볼 수도 있어요)" : "아래 질문에 하나씩 답하면서 내가 발견한 규칙을 적어 제출해요",
       qaBoxes(n, sub) + (sub ? '<div class="hint">제출했어요! 아래 ④에서 유전자형과 퍼넷 사각형으로 확인해 보세요.</div>' : S.cf ? '<div class="hint">제출하면 수정할 수 없어요. 제출할까요?</div><button onclick="doSubmit()">네, 제출할게요</button> <button class="sub" onclick="cancelSubmit()">더 고칠게요</button>' : '<p><button onclick="submitNote()">메모 제출하기</button> <span class="muted">제출하면 수정할 수 없어요.</span></p>'))
     + verify();
-  app.innerHTML = head + main + glossary();
+  app.innerHTML = head + main + glossary() + msFloat();
   S.fresh = 0;
+  if (/^e\d$/.test(v)) { const c = missions().filter(m => m.ok).length; S.msPrev = S.msPrev || {}; const pv = S.msPrev[S.stage]; S.msPrev[S.stage] = c;
+    if (pv !== undefined && c > pv) toast(c === 3 ? "🎉 미션 ①~③ 완료! 이제 ③에서 규칙을 적어 제출할 수 있어요." : `🎯 미션 ${c}/4 완료!`); }
 }
 function ansArr() { let a = S.notes[S.stage]; if (!Array.isArray(a)) a = S.notes[S.stage] = a ? [a] : []; return a; }
 function qaBoxes(n, locked) {
@@ -535,12 +546,14 @@ function agg(s, rows = TROWS) {
   });
   return out;
 }
+function niceStep(max) { const raw = max / 5, p = Math.pow(10, Math.floor(Math.log10(raw))), m = raw / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 5 ? 5 : 10) * p; }
 function tTrend(s, o) {
-  const n = stN(s), ks = keysOf(n), col = tcol(s, n), W = 480, Ht = 240, l = 40, r = 14, t = 12, b = 40, mx = Math.max(100, o.n);
-  const X = v => l + Math.log10(Math.max(v, 1)) / Math.log10(mx) * (W - l - r), Y = v => t + (100 - v) / 100 * (Ht - t - b);
+  const n = stN(s), ks = keysOf(n), col = tcol(s, n), W = 480, Ht = 240, l = 46, r = 14, t = 12, b = 40;
+  const step = niceStep(Math.max(o.n, 10)), mx = Math.max(step, Math.ceil(o.n / step) * step);
+  const X = v => l + v / mx * (W - l - r), Y = v => t + (100 - v) / 100 * (Ht - t - b), fmt = v => v.toLocaleString("ko-KR");
   let g = [0, 25, 50, 75, 100].map(v => `<line x1="${l}" x2="${W - r}" y1="${Y(v)}" y2="${Y(v)}" stroke="#dfe7da"/><text x="${l - 6}" y="${Y(v) + 4}" text-anchor="end" font-size="11" fill="#5d6d62">${v}%</text>`).join("");
-  g += [1, 10, 100, 1000, 10000, 100000].filter(v => v <= mx).map(v => `<line x1="${X(v)}" x2="${X(v)}" y1="${t}" y2="${Ht - b}" stroke="#eef2eb"/><text x="${X(v)}" y="${Ht - b + 15}" text-anchor="middle" font-size="11" fill="#5d6d62">${v}개</text>`).join("");
-  g += `<text x="${(l + W - r) / 2}" y="${Ht - 6}" text-anchor="middle" font-size="12" fill="#5d6d62">반 전체 누적 씨앗 수 (눈금은 10배씩)</text>`;
+  for (let v = 0; v <= mx + 1e-9; v += step) g += `<line x1="${X(v)}" x2="${X(v)}" y1="${t}" y2="${Ht - b}" stroke="#eef2eb"/><text x="${X(v)}" y="${Ht - b + 15}" text-anchor="middle" font-size="11" fill="#5d6d62">${v ? fmt(v) : "0"}</text>`;
+  g += `<text x="${(l + W - r) / 2}" y="${Ht - 6}" text-anchor="middle" font-size="12" fill="#5d6d62">반 전체 누적 씨앗 수 (개) · 눈금 ${fmt(step)}개 간격</text>`;
   const ln = ks.map((k, i) => `<polyline points="${o.hist.map(h => X(h.n).toFixed(1) + "," + Y((h.c[k] || 0) / h.n * 100).toFixed(1)).join(" ")}" fill="none" stroke="${col[i]}" stroke-width="2.5" stroke-linejoin="round"/>`).join("");
   return `<div class="sub-h">씨앗이 늘어남에 따라 비율이 변하는 모습</div><div class="chart"><svg viewBox="0 0 ${W} ${Ht}" role="img" aria-label="누적 씨앗 수에 따른 비율 변화">${g}${ln}</svg><div style="padding:0 8px 6px">${ks.map((k, i) => `<span style="color:${col[i]};font-weight:600;margin-right:14px">● ${pn(s, k)}</span>`).join("")}</div></div>`;
 }
