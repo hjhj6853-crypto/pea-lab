@@ -50,6 +50,24 @@ table{border-collapse:collapse;width:100%;background:#fff}td,th{border:1px solid
 .hero{position:relative}.qr{position:absolute;top:12px;right:12px;width:116px;background:#fff;color:var(--ink);border-radius:10px;padding:6px 6px 4px;text-align:center;font-size:.8rem;line-height:1.3}.qr svg{display:block;width:100%;height:auto}.qr b{display:block;margin-top:2px}.qr.off{padding:10px 8px;font-size:.78rem}.qr.off span{display:block;color:var(--sub);margin-top:2px}@media(max-width:620px){.qr{position:static;margin:14px auto 0}}
 .qa{background:#eef4ff;border:2px solid #9db8e8;border-radius:10px;padding:10px 14px;margin:10px 0}.qa .qt{margin-bottom:8px}.qa textarea{background:#fff}.qd{border:2px solid var(--line);border-radius:10px;margin:12px 0;padding:8px 14px;background:#fff}.qd summary{cursor:pointer;font-size:1.05rem;padding:4px 0}.ans{border-top:1px solid var(--line);padding:8px 0}.ans b{display:inline-block;min-width:90px;color:var(--teal)}
 .praise{border-radius:10px;padding:14px 16px;font-size:1.15rem;font-weight:700;margin:10px 0}.praise.ok{background:#eaf6ec;border:2px solid #2b8a3e;color:#1f6a2f}.praise.try{background:#fff7d6;border:2px solid var(--pea);color:#5b4a00}td.cok,.cok.lg{background:#eaf6ec;color:#17602a;border-left:5px solid #2b8a3e}td.cno,.cno.lg{background:#fbeceb;color:#9a2f20;border-left:5px solid #b3402f}.lg{display:inline-block;padding:2px 12px;border-radius:6px;font-weight:700;margin-right:8px}.sumrow td,.sumrow th{background:#f3f6f1}
+.sec-h[onclick]{cursor:pointer;position:relative;padding-right:48px}.chev{position:absolute;right:18px;top:14px;font-size:1rem}
+.pod{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;background:linear-gradient(#3a7d3f,#2b5d34);border-radius:60px;padding:14px 18px;margin:12px 0}
+.pea{background:none;border:0;color:#fff;display:flex;flex-direction:column;align-items:center;padding:0;margin:0;min-height:0;font-weight:700;font-size:.95rem;line-height:1.25;cursor:pointer}
+.pea .ball{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;background:#f3f7ee;color:#1d3a22;border:3px solid #fff;margin-bottom:4px}
+.pea.done .ball{background:#7fb84a;color:#fff}.pea.cur .ball{background:#e6c53f;color:#3a2e00;box-shadow:0 0 0 4px #ffffff99}.pea.lock .ball{background:#8d9c8d;color:#fff;opacity:.9}.pea small{font-weight:500;opacity:.92;font-size:.8rem}
+@media(max-width:760px){.pod{grid-template-columns:repeat(4,1fr);border-radius:30px;row-gap:12px}}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}.bd{border-radius:999px;padding:4px 14px;font-weight:700;font-size:.95rem;border:2px solid var(--line);background:#fff}.bd.on{background:#fff7d6;border-color:var(--pea);color:#5b4a00}.bd.off{opacity:.55}
+.mission{background:#fff;border:3px solid var(--pea);border-radius:14px;padding:12px 18px;margin:16px 0}.mission ol{margin:6px 0 0;padding-left:0;list-style:none}.mission li{margin:6px 0}.mission li.ok{color:#2b6b36}
+.tut{background:#eef4ff;border:3px solid #9db8e8;border-radius:14px;padding:14px 18px;margin:16px 0}.tutb{display:flex;gap:14px;align-items:center;margin:10px 0}.ti{font-size:2.4rem}
+.pred{background:#f1ebfb;border:2px solid #8e5bd0;border-radius:10px;padding:10px 14px;margin:10px 0}.pred input[type=range]{width:min(320px,60%);padding:0;border:0;vertical-align:middle}
+.glbtn{position:fixed;left:14px;bottom:14px;z-index:50;border-radius:999px;box-shadow:0 2px 8px #0003}.glp{position:fixed;left:14px;bottom:76px;z-index:50;width:min(380px,calc(100vw - 28px));max-height:60vh;overflow:auto;background:#fff;border:3px solid var(--pod);border-radius:14px;padding:12px 16px;box-shadow:0 4px 16px #0004}.glh{display:flex;justify-content:space-between;align-items:center}.glp summary{cursor:pointer;font-weight:700;padding:4px 0}.glp p{margin:2px 0 8px}
+.exp{margin-top:8px;padding:8px 12px;background:#fff;border-left:5px solid #1f6fb5;border-radius:6px;font-size:1rem}.s5{--c:#7a3e9d}.fin .big{font-size:1.4rem;font-weight:800}input.pf{width:6.5em;padding:4px 6px;text-align:center;font-size:1rem}
+@keyframes pop{0%{transform:scale(0)}60%{transform:scale(1.3)}100%{transform:scale(1)}}.sd.new{animation:pop .45s both}
+@keyframes flash{0%{box-shadow:0 0 0 0 #7fb84aaa}100%{box-shadow:0 0 0 16px #7fb84a00}}.res.flash{animation:flash .8s}
+@keyframes o1{to{transform:translateY(-9px)}}@keyframes o2{to{transform:translateY(9px)}}.ph1{animation:o1 .7s ease-out forwards}.ph2{animation:o2 .7s ease-out forwards}.podopen{display:block;margin:4px auto}
+@media(prefers-reduced-motion:reduce){.sd.new,.res.flash,.ph1,.ph2{animation:none!important}}
+@media(pointer:coarse){.sd svg{width:44px;height:44px}.plant svg{width:34px;height:34px}}
+.lnk{cursor:pointer;text-decoration:underline;color:var(--teal)}html.big{font-size:125%}html.big body{font-size:23px}html.big .hide-big{display:none}
 </style></head><body><main id="app"></main>
 <script>
 // ▼ Supabase 프로젝트 설정 (Project Settings > API 에서 복사)
@@ -98,10 +116,10 @@ function persist() {
   S.saved = S.saved || {}; S.saved[S.stage] = snap();
   try { localStorage.setItem(AK(), JSON.stringify({pin:S.pin, prog:S.prog, saved:S.saved, stage:S.stage})); } catch (e) {}
 }
-function syncProg() { send("progress", {pin:S.pin, sub:S.prog.sub, ver:S.prog.ver, quiz:S.prog.quiz}); }
+function syncProg() { send("progress", {pin:S.pin, sub:S.prog.sub, ver:S.prog.ver, quiz:S.prog.quiz, unlock:S.prog.unlock, pred:S.prog.pred, fin:!!S.prog.finSeen}); }
 function startStage(n) {
   if (S.stage) { S.saved = S.saved || {}; S.saved[S.stage] = snap(); }
-  S.stage = n; S.view = "e" + n; S.tr = TRS[n]; TR = S.tr.map(i => TRALL[i]); S.n = TR.length; S.vp = null; S.cf = false;
+  S.stage = n; S.view = "e" + n; S.tr = TRS[n]; TR = S.tr.map(i => TRALL[i]); S.n = TR.length; S.vp = null; S.cf = false; S.col = {}; S.pq = null; S.fresh = 0;
   const sv = S.saved && S.saved[n];
   if (sv) Object.assign(S, sv);
   else {
@@ -111,37 +129,108 @@ function startStage(n) {
   }
   render();
 }
-const doneE = n => !!(S.prog.sub[n] && S.prog.ver[n]), doneQ = id => !!(S.prog.quiz[id] && S.prog.quiz[id].done);
+const doneE = n => !!(S.prog.sub[n] && S.prog.ver[n]), doneQ = id => !!(S.prog.quiz[id] && S.prog.quiz[id].done), UL = id => !!(S.prog.unlock && S.prog.unlock[id]);
+const allDone = () => doneE(1) && doneE(2) && doneQ("A") && doneE(3) && doneQ("B") && doneE(4);
 const STEPS = [
   {id:"e1", n:1, t:"실험 1", s:"씨 모양", open:() => true, done:() => doneE(1)},
   {id:"e2", n:2, t:"실험 2", s:"씨 색깔", open:() => true, done:() => doneE(2)},
-  {id:"qA", t:"형성평가 ①", s:"분리의 법칙", open:() => doneE(1) || doneE(2), why:"실험 1 또는 실험 2의 메모 제출과 검증을 마치면 열려요.", done:() => doneQ("A")},
-  {id:"e3", n:3, t:"실험 3", s:"씨 모양 + 씨 색깔", open:() => doneQ("A") && doneE(1) && doneE(2), why:"실험 1, 2를 모두 마치고 형성평가 ①까지 마치면 열려요.", done:() => doneE(3)},
-  {id:"qB", t:"형성평가 ②", s:"독립의 법칙", open:() => doneE(3), why:"실험 3의 메모 제출과 검증을 마치면 열려요.", done:() => doneQ("B")},
-  {id:"e4", n:4, t:"실험 4", s:"모양 + 색깔 + 꽃 색", open:() => doneQ("B"), why:"형성평가 ②를 마치면 열려요.", done:() => doneE(4)}];
-window.go = id => { const st = STEPS.find(x => x.id === id); if (!st.open()) return toast(st.why); if (st.n) startStage(st.n); else { S.view = id; render(); } };
+  {id:"qA", t:"형성평가 ①", s:"분리의 법칙", open:() => UL("qA") || doneE(1) || doneE(2), why:"실험 1 또는 실험 2의 메모 제출과 검증을 마치면 열려요.", done:() => doneQ("A")},
+  {id:"e3", n:3, t:"실험 3", s:"모양 + 색깔", open:() => UL("e3") || (doneQ("A") && doneE(1) && doneE(2)), why:"실험 1, 2를 모두 마치고 형성평가 ①까지 마치면 열려요.", done:() => doneE(3)},
+  {id:"qB", t:"형성평가 ②", s:"독립의 법칙", open:() => UL("qB") || doneE(3), why:"실험 3의 메모 제출과 검증을 마치면 열려요.", done:() => doneQ("B")},
+  {id:"e4", n:4, t:"실험 4", s:"모양+색깔+꽃", open:() => UL("e4") || doneQ("B"), why:"형성평가 ②를 마치면 열려요.", done:() => doneE(4)},
+  {id:"fin", t:"수료", s:"축하해요!", open:() => allDone(), why:"모든 실험과 형성평가를 마치면 열려요.", done:() => !!S.prog.finSeen}];
+window.go = id => {
+  const st = STEPS.find(x => x.id === id); if (!st.open()) return toast(st.why);
+  if (st.n) startStage(st.n);
+  else if (id === "fin") { const first = !S.prog.finSeen; S.prog.finSeen = true; S.view = "fin"; syncProg(); render(); if (first) { try { confetti(); } catch (e) {} } }
+  else { S.view = id; render(); }
+};
+// ---- 미션 ----
+const isF1 = p => /^자손 1세대 \d+호/.test(p.label), MIN = {1:100, 2:100, 3:300, 4:1000};
+function missions() {
+  const pk = Object.keys(S.pairs).filter(k => S.cum[k]);
+  const ppT = pk.filter(k => !S.pairs[k].a.gen && !S.pairs[k].b.gen && S.pairs[k].a.id !== S.pairs[k].b.id).reduce((s, k) => s + total(k), 0);
+  const f1T = pk.filter(k => isF1(S.pairs[k].a) && isF1(S.pairs[k].b)).reduce((s, k) => s + total(k), 0);
+  return [{t:"부모 식물끼리 교배해서 첫 자손(자손 1세대) 씨앗 얻기", ok:ppT > 0},
+    {t:"씨앗을 클릭해 자손 1세대 식물 2개 이상 키우기", ok:S.plants.filter(isF1).length >= 2},
+    {t:`자손 1세대끼리(자가수분 포함) 교배해서 씨앗 ${MIN[S.stage]}개 이상 모으기`, ok:f1T >= MIN[S.stage], now:f1T},
+    {t:"아래 ③의 질문에 답하고 규칙 제출하기", ok:!!S.sub[S.stage]}];
+}
+const missionsOK = () => missions().slice(0, 3).every(m => m.ok);
+function missionBox() {
+  const M = missions();
+  return `<div class="mission"><b>🎯 이번 실험의 미션</b><ol>${M.map(m => `<li class="${m.ok ? "ok" : ""}">${m.ok ? "✅" : "⬜"} ${m.t}${m.now !== undefined && !m.ok ? ` <span class="muted">(지금 ${m.now}개)</span>` : ""}</li>`).join("")}</ol></div>`;
+}
+// ---- 진행 꼬투리, 배지, 사용법, 용어 풀이 ----
+function podBar() {
+  return `<div class="pod">${STEPS.map(st => { const o = st.open(), d = st.done(), c = st.id === S.view ? "cur" : d ? "done" : o ? "open" : "lock";
+    return `<button class="pea ${c}" onclick="go('${st.id}')"><span class="ball">${!o ? "🔒" : d ? "✓" : st.n || (st.id === "fin" ? "🏅" : "✎")}</span><span class="lb">${st.t}</span><small>${st.s}</small></button>`; }).join("")}</div>`;
+}
+const perfect = id => { const st = S.prog.quiz[id]; return !!(st && st.done && QZ[id].qs.every((q, i) => q.ok(st.ans[i]))); };
+const BADGES = [
+  {t:"분리의 법칙 탐험가", ic:"🔍", ok:() => doneE(1) && doneE(2) && doneQ("A")},
+  {t:"독립의 법칙 탐험가", ic:"🧭", ok:() => doneE(3) && doneQ("B")},
+  {t:"멘델 마스터", ic:"🏆", ok:() => doneE(4)},
+  {t:"형성평가 만점", ic:"⭐", ok:() => perfect("A") && perfect("B")},
+  {t:"예상 도전", ic:"🔮", ok:() => Object.keys(S.prog.pred || {}).length > 0}];
+const badgeBar = () => `<div class="badges">${BADGES.map(b => `<span class="bd ${b.ok() ? "on" : "off"}" title="${b.t}">${b.ok() ? b.ic : "🔒"} ${b.t}</span>`).join("")}</div>`;
+const TUT = [["🌱", "식물 고르기", "부모 식물을 클릭해서 선택해요. 하나만 고르면 자가수분, 두 개를 고르면 서로 교배해요."],
+  ["🫛", "교배하고 씨앗 모으기", "교배 버튼을 누를 때마다 씨앗이 쌓이고 퍼센트와 비율이 바뀌어요. 씨앗을 많이 모을수록 규칙이 또렷하게 보여요!"],
+  ["🎯", "미션과 규칙 찾기", "맨 위 미션을 모두 마치면 ③에서 발견한 규칙을 적을 수 있어요. 어려운 낱말은 왼쪽 아래 📖 용어 풀이에서 찾아보세요."]];
+function tutBox() {
+  if (S.prog.tut) return ""; const i = S.tutI || 0, t = TUT[i];
+  return `<div class="tut"><b>처음이라면 이렇게 해 보세요 (${i + 1}/${TUT.length})</b><div class="tutb"><span class="ti">${t[0]}</span><div><b>${t[1]}</b><br>${t[2]}</div></div>
+  <button class="sub" ${i ? "" : "disabled"} onclick="tutGo(-1)">이전</button> <button onclick="tutGo(1)">${i === TUT.length - 1 ? "시작하기" : "다음"}</button> <button class="sub" onclick="tutEnd()">건너뛰기</button></div>`;
+}
+window.tutGo = d => { const i = (S.tutI || 0) + d; if (i >= TUT.length) return tutEnd(); S.tutI = Math.max(0, i); render(); };
+window.tutEnd = () => { S.prog.tut = true; render(); };
+const GL = [["형질", "생물이 가지는 모양, 색깔 같은 특징이에요. (씨 모양, 씨 색깔, 꽃 색깔)"], ["대립 형질", "같은 형질인데 서로 뚜렷하게 구분되는 특징이에요. (둥근 씨 ↔ 주름진 씨)"],
+  ["순종", "한 형질에서 같은 유전자만 가진 개체예요. 자가수분해도 같은 형질만 나와요. (RR, rr)"], ["잡종", "서로 다른 대립 형질을 가진 부모 사이에서 태어난 자손이에요. (Rr)"],
+  ["우성 / 열성", "서로 다른 순종끼리 교배했을 때 자손에게 겉으로 나타나는 형질이 우성, 나타나지 않는 형질이 열성이에요."],
+  ["대립유전자", "한 형질을 결정하는 한 쌍의 유전자예요. 알파벳 대문자는 우성, 소문자는 열성을 나타내요. (R과 r)"],
+  ["유전자형", "형질을 결정하는 유전자 구성을 알파벳으로 나타낸 거예요. (RR, Rr, rr)"], ["표현형", "겉으로 드러나는 형질이에요. (둥근 완두, 주름진 완두)"],
+  ["생식세포", "자손에게 유전자를 전달하는 세포예요. (정자, 난자, 꽃가루, 밑씨)"], ["퍼넷 사각형", "부모의 생식세포를 가로와 세로에 놓고, 자손의 유전자형을 한눈에 예상하는 표예요."]];
+window.toggleGl = () => { S.gl = !S.gl; render(); };
+const glossary = () => `<button class="glbtn" onclick="toggleGl()">📖 용어 풀이</button>${S.gl ? `<aside class="glp"><div class="glh"><b>📖 용어 풀이</b><button class="sub" onclick="toggleGl()">닫기</button></div>${GL.map(g => `<details><summary>${g[0]}</summary><p>${g[1]}</p></details>`).join("")}<p class="muted">법칙의 이름은 규칙을 직접 찾아본 뒤에 배워요!</p></aside>` : ""}`;
+function finView() {
+  const sd = Object.values(S.saved || {}), seeds = sd.reduce((s, v) => s + Object.values(v.cum || {}).reduce((x, c) => x + Object.values(c).reduce((a, b) => a + b, 0), 0), 0);
+  const q = id => { const st = S.prog.quiz[id]; return st ? QZ[id].qs.filter((x, i) => x.ok(st.ans[i])).length + "/" + QZ[id].qs.length : "-"; };
+  return `<section class="sec s5"><div class="sec-h">🏅 수료를 축하해요!<small>${esc(S.code)}반 ${esc(S.name)}</small></div><div class="sec-b"><div class="fin">
+  <p class="big">실험 4개와 형성평가 2번을 모두 마쳤어요!</p><p>지금까지 교배로 얻은 씨앗은 모두 <b>${seeds}개</b>예요. 형성평가 점수는 ① <b>${q("A")}</b>, ② <b>${q("B")}</b>예요.</p>
+  <div class="sub-h">내가 얻은 배지</div><div class="badges">${BADGES.map(b => `<span class="bd ${b.ok() ? "on" : "off"}">${b.ok() ? b.ic : "🔒"} ${b.t}</span>`).join("")}</div>
+  <div class="sub-h">오늘 찾아낸 규칙</div><div class="hint">분리의 법칙: 생식세포를 만들 때 한 쌍의 대립유전자가 분리되어 서로 다른 생식세포로 들어가요.<br>독립의 법칙: 서로 다른 형질을 결정하는 유전자는 서로 영향을 주지 않고 독립적으로 유전돼요.</div></div></div></section>`;
+}
 const norm = a => (a || "").replace(/\s/g, "");
 const QZ = {
   A:{t:"형성평가 ① 분리의 법칙", qs:[
-    {t:"생식세포를 만들 때 한 쌍의 대립유전자가 분리되어 다음 세대로 유전되는 현상을 {}(이)라고 한다.", ans:"분리의 법칙", ok:a => norm(a[0]).replace(/의/g, "") === "분리법칙"},
-    {t:"유전자형이 Rr인 개체가 만들 수 있는 생식세포의 종류는 {}, {}가 있다.", ans:"R, r (순서는 상관없어요)", ok:a => [norm(a[0]), norm(a[1])].sort().join() === "R,r"}]},
+    {t:"생식세포를 만들 때 한 쌍의 대립유전자가 분리되어 다음 세대로 유전되는 현상을 {}(이)라고 한다.", ans:"분리의 법칙", ok:a => norm(a[0]).replace(/의/g, "") === "분리법칙", exp:"한 쌍의 대립유전자가 생식세포를 만들 때 서로 갈라져 다른 생식세포로 들어가는 것을 분리의 법칙이라고 해요. 자손 1세대끼리 교배했을 때 사라졌던 형질이 다시 나타난 이유예요."},
+    {t:"유전자형이 Rr인 개체가 만들 수 있는 생식세포의 종류는 {}, {}가 있다.", ans:"R, r (순서는 상관없어요)", ok:a => [norm(a[0]), norm(a[1])].sort().join() === "R,r", exp:"Rr의 R과 r이 분리되어, R을 가진 생식세포와 r을 가진 생식세포가 만들어져요. 퍼넷 사각형의 가로, 세로에 놓은 글자가 바로 이 생식세포예요."}]},
   B:{t:"형성평가 ② 독립의 법칙", qs:[
-    {t:"유전자형이 RrYy인 완두가 만드는 생식세포의 종류는 {}가지이다.", ans:"4", ok:a => norm(a[0]).replace(/가지/g, "") === "4"},
-    {t:"완두의 교배에서 둥글고 황색, 둥글고 녹색, 주름지고 황색, 주름지고 녹색인 완두의 비가 9:3:3:1일 때, 둥근 완두와 주름진 완두의 비는 {}가 된다.", ans:"3:1", ok:a => norm(a[0]).replace(/대/g, ":") === "3:1"}]}};
+    {t:"유전자형이 RrYy인 완두가 만드는 생식세포의 종류는 {}가지이다.", ans:"4", ok:a => norm(a[0]).replace(/가지/g, "") === "4", exp:"R과 r 중 하나, Y와 y 중 하나가 서로 영향 없이 짝지어져 RY, Ry, rY, ry의 4가지가 만들어져요. 실험 3의 퍼넷 사각형이 4×4인 이유예요."},
+    {t:"완두의 교배에서 둥글고 황색, 둥글고 녹색, 주름지고 황색, 주름지고 녹색인 완두의 비가 9:3:3:1일 때, 둥근 완두와 주름진 완두의 비는 {}가 된다.", ans:"3:1", ok:a => norm(a[0]).replace(/대/g, ":") === "3:1", exp:"둥근 완두는 9+3=12, 주름진 완두는 3+1=4이므로 12:4=3:1이에요. 색깔과 상관없이 모양만 세어도 3:1이 되는 것이 독립의 법칙의 증거예요."}]}};
 function quizView(id) {
-  const Q = QZ[id], st = S.prog.quiz[id] = S.prog.quiz[id] || {ans:Q.qs.map(q => q.t.split("{}").slice(1).map(() => "")), done:false}, d = st.done;
-  const sc = d ? Q.qs.filter((q, i) => q.ok(st.ans[i])).length : 0;
-  const fb = !d ? "" : sc === Q.qs.length ? '<div class="praise ok">🌟 모두 맞혔어요! 정말 잘했어요! 실험으로 직접 찾아낸 규칙을 완벽하게 이해했네요.</div>' : '<div class="praise try">💪 괜찮아요! 틀린 문제는 정답을 확인하고, 실험에서 본 결과를 떠올려 보세요. 다음에는 더 잘할 수 있어요!</div>';
-  const body = Q.qs.map((q, i) => { const parts = q.t.split("{}"), ok = d && q.ok(st.ans[i]);
-    return `<div class="q ${d ? (ok ? "ok" : "no") : ""}"><b>${i + 1}.</b> ${parts.map((p, j) => esc(p) + (j < parts.length - 1 ? `<input class="bl" ${d ? "readonly" : ""} value="${esc(st.ans[i][j])}" oninput="qa('${id}',${i},${j},this.value)">` : "")).join("")}${d ? `<div class="muted">${ok ? "✓ 정답이에요!" : "✗ 정답: <b>" + esc(q.ans) + "</b>"}</div>` : ""}</div>`; }).join("");
+  const Q = QZ[id], N = Q.qs.length, st = S.prog.quiz[id] = S.prog.quiz[id] || {ans:Q.qs.map(q => q.t.split("{}").slice(1).map(() => "")), done:false}, d = st.done, ed = st.edit || [];
+  const sc = d ? Q.qs.filter((q, i) => q.ok(st.ans[i])).length : 0, retry = d && !st.retried && !st.edit && sc < N;
+  const fb = !d ? "" : st.edit ? '<div class="praise try">✏️ 틀린 문제만 다시 풀 수 있어요. 해설을 떠올리며 답을 고쳐 보세요!</div>'
+    : sc === N ? (st.retried ? '<div class="praise ok">🌟 다시 도전해서 모두 맞혔어요! 끝까지 해내는 모습이 정말 멋져요!</div>' : '<div class="praise ok">🌟 모두 맞혔어요! 정말 잘했어요! 실험으로 직접 찾아낸 규칙을 완벽하게 이해했네요.</div>')
+    : '<div class="praise try">💪 괜찮아요! 틀린 문제는 정답과 해설을 확인하고, 실험에서 본 결과를 떠올려 보세요. 다음에는 더 잘할 수 있어요!' + (retry ? " 틀린 문제는 한 번 더 도전할 수 있어요." : "") + "</div>";
+  const body = Q.qs.map((q, i) => { const parts = q.t.split("{}"), e = ed.includes(i), lock = d && !e, ok = lock && q.ok(st.ans[i]);
+    return `<div class="q ${lock ? (ok ? "ok" : "no") : ""}"><b>${i + 1}.</b> ${parts.map((p, j) => esc(p) + (j < parts.length - 1 ? `<input class="bl" ${lock ? "readonly" : ""} value="${esc(st.ans[i][j])}" oninput="qa('${id}',${i},${j},this.value)">` : "")).join("")}${lock ? `<div class="muted">${ok ? "✓ 정답이에요!" : "✗ 정답: <b>" + esc(q.ans) + "</b>"}</div><div class="exp">💡 ${q.exp}</div>` : ""}</div>`; }).join("");
   const nb = nextBtns();
-  return `<section class="sec s3"><div class="sec-h">${Q.t}<small>빈칸을 모두 채우고 제출하세요</small></div><div class="sec-b">${fb}${body}${d ? `<div class="hint">🎉 축하해요! 형성평가 제출을 마쳤어요. ${nb ? "다음으로 할 수 있는 단계를 골라 보세요." : "모든 단계를 마쳤어요!"}</div>${nb}` : `<p><button onclick="submitQuiz('${id}')">제출하기</button></p>`}</div></section>`;
+  const foot = !d || st.edit ? `<p><button onclick="submitQuiz('${id}')">${st.edit ? "다시 제출하기" : "제출하기"}</button></p>`
+    : `<div class="hint">🎉 축하해요! 형성평가 제출을 마쳤어요. ${nb ? "다음으로 할 수 있는 단계를 골라 보세요." : "모든 단계를 마쳤어요!"}</div>${retry ? `<button class="sub" onclick="retryQuiz('${id}')">틀린 문제 한 번 더 도전하기</button> ` : ""}${nb}`;
+  return `<section class="sec s3"><div class="sec-h">${Q.t}<small>빈칸을 모두 채우고 제출하세요</small></div><div class="sec-b">${fb}${body}${foot}</div></section>`;
 }
 window.qa = (id, i, j, v) => { S.prog.quiz[id].ans[i][j] = v; };
 window.submitQuiz = id => {
-  const st = S.prog.quiz[id]; if (st.ans.some(r => r.some(x => !x.trim()))) return toast("빈칸을 모두 채워 주세요.");
-  st.done = true; st.score = QZ[id].qs.filter((q, i) => q.ok(st.ans[i])).length; syncProg(); render(); try { confetti(); } catch (e) {}
+  const st = S.prog.quiz[id], Q = QZ[id], ed = st.edit;
+  if (st.ans.some((r, i) => (!ed || ed.includes(i)) && r.some(x => !x.trim()))) return toast("빈칸을 모두 채워 주세요.");
+  const first = !st.done; st.done = true;
+  const sc = Q.qs.filter((q, i) => q.ok(st.ans[i])).length; st.score = sc;
+  if (first) st.first = sc; else { st.retried = true; st.edit = null; }
+  syncProg(); render(); if (first || sc === Q.qs.length) { try { confetti(); } catch (e) {} }
 };
+window.retryQuiz = id => { const st = S.prog.quiz[id], Q = QZ[id]; st.edit = Q.qs.map((q, i) => i).filter(i => !Q.qs[i].ok(st.ans[i])); st.edit.forEach(i => { st.ans[i] = st.ans[i].map(() => ""); }); render(); };
 async function send(kind, payload) {
   if (!sb) return;
   const {error} = await sb.from("logs").insert({class_code:S.code, student:S.name, kind, payload});
@@ -151,13 +240,17 @@ const byId = id => S.plants.find(p => p.id === id);
 window.pick = (z, id) => { const s = S.sel[z], i = s.indexOf(id); if (i >= 0) s.splice(i, 1); else if (s.length < 2) s.push(id); else S.sel[z] = [id]; render(); };
 window.doCross = (z, N) => {
   const s = S.sel[z], n = S.n; if (!s.length) return;
-  const a = byId(s[0]), b = byId(s[1] || s[0]), pk = [a.id, b.id].sort().join("+"), c = {};
+  const a = byId(s[0]), b = byId(s[1] || s[0]);
+  if (z === "F" && isF1(a) && isF1(b) && S.prog.pred[S.stage] === undefined) { S.pq = {z, N}; S.pv = S.pv || 50; render(); return; }
+  const pk = [a.id, b.id].sort().join("+"), c = {};
   const K = S.kids[pk] = S.kids[pk] || [], cm = S.cum[pk] = S.cum[pk] || {};
   for (let k = 0; k < N; k++) { const g = child(a.g, b.g, n), key = phKey(g, n); K.push(g); c[key] = (c[key] || 0) + 1; cm[key] = (cm[key] || 0) + 1; }
   if (K.length > 300) K.splice(0, K.length - 300);
-  S.pairs[pk] = {a, b}; S.last = {z, pk, a, b};
+  S.pairs[pk] = {a, b}; S.last = {z, pk, a, b}; S.fresh = N;
   send("cross", {stage:S.stage, a:a.label, b:b.label, n:N, counts:c}); render();
 };
+window.setPv = v => { S.pv = +v; const e = document.getElementById("pv"); if (e) e.textContent = v + "%"; };
+window.savePred = () => { const q = S.pq; S.prog.pred[S.stage] = S.pv; S.pq = null; send("pred", {stage:S.stage, pct:S.pv}); syncProg(); doCross(q.z, q.N); };
 window.resetCross = () => { const L = S.last; delete S.cum[L.pk]; delete S.kids[L.pk]; S.last = null; render(); };
 window.take = i => {
   const L = S.last, K = S.kids[L.pk], base = total(L.pk) - K.length, src = L.pk + ":" + i, ex = S.plants.findIndex(p => p.src === src);
@@ -178,7 +271,9 @@ function chips(z) {
 function ctrl(z) {
   const m = S.sel[z].length, t = m === 1 ? "자가수분" : "교배";
   const msg = m === 0 ? "식물을 클릭해 선택하세요. 하나만 고르면 자가수분, 두 개를 고르면 서로 교배해요." : m === 1 ? "1개 선택 → 자가수분해요. 다른 식물도 고르면 서로 교배해요." : "2개 선택 → 서로 교배해요.";
-  return `<div class="sub-h">교배하기</div><div class="hint">${msg}</div><button ${m ? "" : "disabled"} onclick="doCross('${z}',10)">${t} · 씨앗 10개 더</button> <button class="sub" ${m ? "" : "disabled"} onclick="doCross('${z}',1)">씨앗 1개 더</button> ${S.stage >= 3 ? `<button class="sub" ${m ? "" : "disabled"} onclick="doCross('${z}',100)">씨앗 100개 더</button>` : ""} ${S.stage === 4 ? `<button class="sub" ${m ? "" : "disabled"} onclick="doCross('${z}',1000)">씨앗 1000개 더</button>` : ""}`;
+  const dis = m ? "" : "disabled", dom = nameK("0".repeat(S.n), S.n);
+  const pq = S.pq && S.pq.z === z ? `<div class="pred"><b>🔮 먼저 예상해 보세요!</b><br>자손 1세대끼리 교배하면, <b>${dom}</b> 씨앗은 전체의 몇 %쯤 나올까요?<br><input type="range" min="0" max="100" value="${S.pv || 50}" oninput="setPv(this.value)"> <b id="pv">${S.pv || 50}%</b> <button onclick="savePred()">예상 저장하고 교배하기</button></div>` : "";
+  return `<div class="sub-h">교배하기</div><div class="hint">${msg}</div>${pq}<button ${dis} onclick="doCross('${z}',10)">${t} · 씨앗 10개 더</button> <button class="sub" ${dis} onclick="doCross('${z}',1)">씨앗 1개 더</button> ${S.stage >= 3 ? `<button class="sub" ${dis} onclick="doCross('${z}',100)">씨앗 100개 더</button>` : ""} ${S.stage === 4 ? `<button class="sub" ${dis} onclick="doCross('${z}',1000)">씨앗 1000개 더</button>` : ""}`;
 }
 const PAL = ["#e08a00", "#2b8a3e", "#1f6fb5", "#7a5a86", "#c2185b", "#00897b", "#6d4c41", "#546e7a"];
 const LC = n => n === 1 ? (TR[0].L === "Y" ? ["#c9a22a", "#5a9436"] : ["#2b5d34", "#7a5a86"]) : n === 2 ? PAL.slice(0, 4) : PAL;
@@ -195,11 +290,16 @@ function perTrait(cum) {
     return `<tr><th>${t.nm}</th><td>${t.ph[0]} <b>${p(0)}%</b> (${c[0]}개)</td><td>${t.ph[1]} <b>${p(1)}%</b> (${c[1]}개)</td><td><b>비율 ${isFinite(m) ? (c[0] / m).toFixed(1) + " : " + (c[1] / m).toFixed(1) : "-"}</b></td></tr>`; }).join("");
 }
 window.del = id => { S.plants = S.plants.filter(p => p.id !== id); S.sel.F = S.sel.F.filter(x => x !== id); render(); };
+const POD = '<svg class="podopen" viewBox="0 0 120 40" width="110" height="38" aria-hidden="true"><g class="ph1"><path d="M5 20 Q60 -8 115 20 Q60 20 5 20Z" fill="#4f9a3e"/></g><g class="ph2"><path d="M5 20 Q60 48 115 20 Q60 20 5 20Z" fill="#3b7d2f"/></g><circle cx="28" cy="20" r="6" fill="#e6c53f"/><circle cx="48" cy="20" r="6" fill="#7fb84a"/><circle cx="68" cy="20" r="6" fill="#e6c53f"/><circle cx="88" cy="20" r="6" fill="#7fb84a"/></svg>';
 function result(z) {
   const L = S.last; if (!L || L.z !== z) return "";
   const n = S.n, cm = S.cum[L.pk], K = S.kids[L.pk], st = Math.max(0, K.length - 240), T = total(L.pk), base = T - K.length, self = L.a.id === L.b.id;
-  const dots = K.slice(st).map((g, j) => `<span class="sd ${S.plants.some(p => p.src === L.pk + ":" + (base + st + j)) ? "taken" : ""}" role="button" tabindex="0" title="${nameK(phKey(g, n), n)}" onclick="take(${base + st + j})" onkeydown="if(event.key==='Enter')take(${base + st + j})">${seed(phKey(g, n), n, 32)}</span>`).join("");
-  return `<div class="res"><div class="sub-h">교배 결과: ${esc(L.a.label)} ${self ? "자가수분" : "× " + esc(L.b.label)} (씨앗 ${T}개)</div>
+  const fr0 = Math.min(S.fresh || 0, 80), newFrom = T - fr0;
+  const dots = K.slice(st).map((g, j) => { const ix = base + st + j, nw = fr0 && ix >= newFrom;
+    return `<span class="sd ${S.plants.some(p => p.src === L.pk + ":" + ix) ? "taken" : ""} ${nw ? "new" : ""}" ${nw ? `style="animation-delay:${(ix - newFrom) * 14}ms"` : ""} role="button" tabindex="0" title="${nameK(phKey(g, n), n)}" onclick="take(${ix})" onkeydown="if(event.key==='Enter')take(${ix})">${seed(phKey(g, n), n, 32)}</span>`; }).join("");
+  const pr = S.prog.pred[S.stage], dk = "0".repeat(n);
+  const pc = z === "F" && isF1(L.a) && isF1(L.b) && pr !== undefined ? `<div class="pred">🔮 내 예상: ${nameK(dk, n)} <b>${pr}%</b> → 지금까지 실제 결과: <b>${((cm[dk] || 0) / T * 100).toFixed(1)}%</b></div>` : "";
+  return `<div class="res ${S.fresh ? "flash" : ""}">${S.fresh ? POD : ""}<div class="sub-h">교배 결과: ${esc(L.a.label)} ${self ? "자가수분" : "× " + esc(L.b.label)} (씨앗 ${T}개)</div>${pc}
   <div class="sub-h">겉모습별 퍼센트와 비율</div>${ratio(cm, n)}
   ${n >= 2 ? `<div class="sub-h">형질별로 따로 세어 보기</div><table>${perTrait(cm)}</table>` : ""}
   <div class="sub-h">얻은 씨앗</div><div class="hint">키우고 싶은 씨앗을 클릭하면 자손 세대 실험실로 옮겨져요. 다시 클릭하면 취소돼요.</div>
@@ -209,7 +309,7 @@ function result(z) {
 const gv = g => g.match(/../g).join(" ");
 function gam(g, n) { let r = [[]]; for (let i = 0; i < n; i++) { const p = g.substr(2 * i, 2); r = r.flatMap(x => [[...x, p[0]], [...x, p[1]]]); } return r; }
 const mk = (x, y) => x.map((c, i) => [c, y[i]].sort((p, q) => (p === p.toUpperCase() ? 0 : 1) - (q === q.toUpperCase() ? 0 : 1)).join("")).join("");
-function punnett(pr, cum) {
+function punnett(pr, cum, gridOn = true) {
   const n = S.n, ga = gam(pr.a.g, n), gb = gam(pr.b.g, n), ks = keysOf(n), col = LC(n), cnt = {}; let tot = 0;
   let t = `<div class="pw"><table class="pn"><tr><th></th>${ga.map(x => `<th>${x.join("")}</th>`).join("")}</tr>`;
   gb.forEach(y => { t += `<tr><th>${y.join("")}</th>`; ga.forEach(x => { const c = mk(x, y), k = phKey(c, n); cnt[k] = (cnt[k] || 0) + 1; tot++;
@@ -217,9 +317,46 @@ function punnett(pr, cum) {
   t += "</table></div>";
   const tc = ks.map(k => cnt[k] || 0), tm = Math.min(...tc.filter(v => v > 0)), ev = ks.map(k => cum[k] || 0), es = ev.reduce((s, v) => s + v, 0), em = Math.min(...ev.filter(v => v > 0));
   const rows = ks.map((k, i) => `<tr><td>${seed(k, n, 22)} ${nameK(k, n)}</td><td>${tc[i]}칸 (비율 ${(tc[i] / tm).toFixed(1)})</td><td><b>${(tc[i] / tot * 100).toFixed(1)}%</b></td><td><b>${es ? (ev[i] / es * 100).toFixed(1) : "0.0"}%</b> (비율 ${isFinite(em) ? (ev[i] / em).toFixed(1) : "-"}, ${ev[i]}개)</td></tr>`).join("");
-  return t + `<div class="sub-h">이론값과 내 실험 비교</div><table><tr><th>겉모습</th><th>퍼넷 사각형</th><th>이론 퍼센트</th><th>내 실험 (씨앗 ${es}개)</th></tr>${rows}</table>
+  return (gridOn ? t : "") + `<div class="sub-h">이론값과 내 실험 비교</div><table><tr><th>겉모습</th><th>퍼넷 사각형</th><th>이론 퍼센트</th><th>내 실험 (씨앗 ${es}개)</th></tr>${rows}</table>
   <div class="hint">씨앗을 더 많이 얻을수록 내 실험 값이 이론값에 가까워지는지 확인해 보세요.</div>`;
 }
+const canonG = (s, n) => { s = (s || "").replace(/\s/g, ""); return Array.from({length:n}, (_, i) => s.substr(2 * i, 2).split("").sort((p, q) => (p === p.toUpperCase() ? 0 : 1) - (q === q.toUpperCase() ? 0 : 1)).join("")).join(""); };
+window.pfIn = (k, id, v) => { S.prog.pfill[k].v[id] = v; };
+window.pfChk = k => { S.prog.pfill[k].chk = true; render(); };
+window.pfSkip = k => { S.prog.pfill[k].skip = true; render(); };
+function fillPun(pr, key, cum) {
+  const n = S.n, ga = gam(pr.a.g, n), gb = gam(pr.b.g, n), F = S.prog.pfill[key] = S.prog.pfill[key] || {v:{}, chk:false, skip:false};
+  if (n >= 3) return '<div class="hint">칸이 64개라서 정답 사각형을 바로 보여줘요.</div>' + punnett(pr, cum, true);
+  if (F.skip) return punnett(pr, cum, true);
+  let t = `<div class="pw"><table class="pn"><tr><th></th>${ga.map(x => `<th>${x.join("")}</th>`).join("")}</tr>`, right = 0;
+  gb.forEach((y, r) => { t += `<tr><th>${y.join("")}</th>`; ga.forEach((x, c) => { const id = r + "," + c, v = F.v[id] || "", a = mk(x, y), ok = canonG(v, n) === a;
+    if (F.chk) { if (ok) right++; t += `<td class="${ok ? "cok" : "cno"}">${ok ? "✓ " + gv(a) : "✗ " + esc(v || "빈칸") + "<br><b>정답 " + gv(a) + "</b>"}</td>`; }
+    else t += `<td><input class="pf" value="${esc(v)}" maxlength="${2 * n}" placeholder="${n === 1 ? "예: Rr" : "예: RrYy"}" oninput="pfIn('${key}','${id}',this.value)"></td>`; }); t += "</tr>"; });
+  t += "</table></div>";
+  if (!F.chk) return `<div class="hint">✏️ 먼저 내가 직접 채워 보세요! 가로(위)와 세로(왼쪽)의 생식세포를 만나게 해서, 각 칸에 자손의 유전자형을 적어 보세요.</div>${t}<button onclick="pfChk('${key}')">정답 확인하기</button> <button class="sub" onclick="pfSkip('${key}')">건너뛰고 정답 보기</button>`;
+  const tot = ga.length * gb.length;
+  return `<div class="praise ${right === tot ? "ok" : "try"}">${right === tot ? "🌟 모든 칸을 맞혔어요!" : `${tot}칸 중 ${right}칸을 맞혔어요. 빨간 칸의 정답을 확인해 보세요.`}</div>${t}` + punnett(pr, cum, false);
+}
+function clsCard() {
+  if (!sb) return '<div class="hint">서버에 연결되지 않아 우리 반 결과는 볼 수 없어요.</div>';
+  const c = S.cls && S.cls[S.stage];
+  if (c === undefined) { loadCls(S.stage); return '<div class="hint">우리 반 결과를 불러오는 중이에요…</div>'; }
+  if (c === "loading") return '<div class="hint">우리 반 결과를 불러오는 중이에요…</div>';
+  if (c === "err") return '<div class="hint">우리 반 결과를 불러오지 못했어요.</div>';
+  const A = agg(S.stage, c).F1;
+  return `<div class="sub-h">우리 반 전체 결과</div><div class="hint">내 결과는 들쭉날쭉했어도, 반 친구들의 결과를 모두 합치면 어떻게 될까요?</div>${A ? aggCard(S.stage, "F1", A) : '<p class="muted">아직 반에 자손 1세대끼리 교배한 기록이 없어요.</p>'}<p><button class="sub" onclick="reloadCls()">우리 반 결과 새로고침</button></p>`;
+}
+async function loadCls(stage) {
+  S.cls = S.cls || {}; if (S.cls[stage] === "loading") return; S.cls[stage] = "loading";
+  let rows = [], from = 0;
+  for (let i = 0; i < 6; i++) {
+    const {data, error} = await sb.from("logs").select("student,payload").eq("class_code", S.code).eq("kind", "cross").eq("payload->>stage", String(stage)).order("created_at").range(from, from + 999);
+    if (error) { S.cls[stage] = "err"; return render(); }
+    rows = rows.concat(data || []); if (!data || data.length < 1000) break; from += 1000;
+  }
+  S.cls[stage] = rows.map(r => ({kind:"cross", student:r.student, payload:r.payload})); render();
+}
+window.reloadCls = () => { S.cls = S.cls || {}; delete S.cls[S.stage]; render(); };
 window.setVp = v => { S.vp = v; render(); };
 const GD = {
   1:["부모(P)의 씨 모양은 각각 무엇이었나요? 첫 자손(F1)은 모두 어떤 모양이었나요? 이 결과로 볼 때 <b>우성</b>(겉으로 드러나는 형질)과 <b>열성</b>(가려지는 형질)은 각각 무엇이라고 생각하나요?",
@@ -242,33 +379,40 @@ function nextBtns() {
   return c.map((x, i) => `<button class="${i ? "sub" : ""}" onclick="go('${x.id}')">${x.t}(으)로 가기</button>`).join(" ");
 }
 window.finishVer = () => { S.prog.ver[S.stage] = true; syncProg(); render(); toast("검증을 마쳤어요!"); const nb = document.getElementById("nextbox"); if (nb) nb.scrollIntoView({behavior:"smooth", block:"center"}); };
+const isCol = id => S.col[id] !== undefined ? S.col[id] : (id === "s3" ? !(missionsOK() || S.sub[S.stage]) : false);
+window.tog = id => { S.col[id] = !isCol(id); render(); };
+const sec = (id, cls, h, small, body) => `<section class="sec ${cls}" id="${id}"><div class="sec-h" onclick="tog('${id}')">${h}<small>${small}</small><span class="chev">${isCol(id) ? "▶" : "▼"}</span></div><div class="sec-b" ${isCol(id) ? "hidden" : ""}>${body}</div></section>`;
 function verify() {
-  const head = '<section class="sec s4" id="verify"><div class="sec-h">④ 결과 검증하기<small>내가 고른 식물의 유전자형을 확인하고, 퍼넷 사각형으로 내 실험 결과를 검증해요</small></div><div class="sec-b">';
-  if (!S.sub[S.stage]) return head + '<div class="hint">③에서 내가 발견한 규칙을 제출하면 열려요. 먼저 내 생각을 정리해 제출해 보세요.</div></div></section>';
+  const T = "④ 결과 검증하기", sm = "내가 고른 식물의 유전자형을 확인하고, 퍼넷 사각형으로 내 실험 결과를 검증해요";
+  if (!S.sub[S.stage]) return sec("verify", "s4", T, sm, '<div class="hint">③에서 내가 발견한 규칙을 제출하면 열려요. 먼저 내 생각을 정리해 제출해 보세요.</div>');
   const n = S.n, pks = Object.keys(S.pairs).filter(k => S.cum[k]), pk = pks.includes(S.vp) ? S.vp : pks[0];
   const pl = S.plants.map(p => `<span class="plant">${seed(phKey(p.g, n), n, 26)} ${esc(p.label)} <b>${gv(p.g)}</b></span>`).join("");
   let body = `<div class="sub-h">내 식물의 유전자형</div>${pl}<div class="sub-h">퍼넷 사각형으로 검증하기</div>`;
   if (!pk) body += '<div class="hint">아직 교배 결과가 없어요. ①, ②에서 교배해 보세요.</div>';
   else {
     const opt = pks.map(k => { const q = S.pairs[k]; return `<option value="${k}" ${k === pk ? "selected" : ""}>${esc(q.a.label)} ${q.a.id === q.b.id ? "자가수분" : "× " + esc(q.b.label)}</option>`; }).join("");
-    body += `<label>검증할 교배<select onchange="setVp(this.value)">${opt}</select></label>${punnett(S.pairs[pk], S.cum[pk])}`;
+    body += `<label>검증할 교배<select onchange="setVp(this.value)">${opt}</select></label>${fillPun(S.pairs[pk], S.stage + "|" + pk, S.cum[pk])}`;
   }
+  body += clsCard();
   const nb = nextBtns(), fin = S.prog.ver[S.stage] ? `<div class="hint" id="nextbox">✓ 이 실험의 검증을 마쳤어요. ${nb ? "다음으로 할 수 있는 단계를 골라 보세요." : "모든 단계를 마쳤어요!"}</div>${nb}` : pk ? '<p><button onclick="finishVer()">이 실험 검증 마치기</button></p>' : "";
-  return head + body + fin + "</div></section>";
+  return sec("verify", "s4", T, sm, body + fin);
 }
 function render() {
   persist();
   const n = S.stage, sub = S.sub[n], v = S.view;
-  const tabs = STEPS.map(st => { const o = st.open(); return `<button class="${st.id === v ? "on" : ""} ${o ? "" : "lock"}" onclick="go('${st.id}')">${st.t}<small>${!o ? "🔒 " : st.done() ? "✓ " : ""}${st.s}</small></button>`; }).join("");
   const head = `<div class="top"><h1>완두콩 교배 실험실</h1><div class="who">${esc(S.code)}반 · ${esc(S.name)} <button class="sub" onclick="logout()">나가기</button></div></div>
-  ${sb ? "" : '<p class="warn">서버가 연결되지 않아 진행 상황이 이 기기에만 저장돼요. 선생님께는 전달되지 않아요.</p>'}<div class="tabs">${tabs}</div>`;
-  if (v === "qA" || v === "qB") { app.innerHTML = head + quizView(v[1]); return; }
-  app.innerHTML = head + `
-  <section class="sec s1"><div class="sec-h">① 부모 세대(P) 교배<small>순종 부모로 교배해서 첫 자손 씨앗을 얻어요</small></div><div class="sec-b"><div class="sub-h">부모 식물</div>${chips("P")}${ctrl("P")}${result("P")}</div></section>
-  <section class="sec s2" id="fzone"><div class="sec-h">② 자손 세대 교배 실험실<small>키운 자손 식물끼리, 또는 부모와 교배해요. 겉모습만 보고 속을 추리해 보세요</small></div><div class="sec-b"><div class="sub-h">내가 키운 식물</div>${chips("F")}${ctrl("F")}${result("F")}</div></section>
-  <section class="sec s3"><div class="sec-h">③ 내가 발견한 규칙 제출하기<small>아래 질문에 하나씩 답하면서 내가 발견한 규칙을 적어 제출해요</small></div><div class="sec-b">${qaBoxes(n, sub)}
-  ${sub ? '<div class="hint">제출했어요! 아래 ④에서 유전자형과 퍼넷 사각형으로 확인해 보세요.</div>' : S.cf ? '<div class="hint">제출하면 수정할 수 없어요. 제출할까요?</div><button onclick="doSubmit()">네, 제출할게요</button> <button class="sub" onclick="cancelSubmit()">더 고칠게요</button>' : '<p><button onclick="submitNote()">메모 제출하기</button> <span class="muted">제출하면 수정할 수 없어요.</span></p>'}</div></section>
-  ${verify()}`;
+  ${sb ? "" : '<p class="warn">서버가 연결되지 않아 진행 상황이 이 기기에만 저장돼요. 선생님께는 전달되지 않아요.</p>'}${podBar()}${badgeBar()}`;
+  let main;
+  if (v === "qA" || v === "qB") main = quizView(v[1]);
+  else if (v === "fin") main = finView();
+  else main = tutBox() + missionBox()
+    + sec("s1", "s1", "① 부모 세대(P) 교배", "순종 부모로 교배해서 첫 자손 씨앗을 얻어요", `<div class="sub-h">부모 식물</div>${chips("P")}${ctrl("P")}${result("P")}`)
+    + sec("fzone", "s2", "② 자손 세대 교배 실험실", "키운 자손 식물끼리, 또는 부모와 교배해요. 겉모습만 보고 속을 추리해 보세요", `<div class="sub-h">내가 키운 식물</div>${chips("F")}${ctrl("F")}${result("F")}`)
+    + sec("s3", "s3", "③ 내가 발견한 규칙 제출하기", isCol("s3") ? "미션 ①~③을 마치면 열려요 (눌러서 미리 볼 수도 있어요)" : "아래 질문에 하나씩 답하면서 내가 발견한 규칙을 적어 제출해요",
+      qaBoxes(n, sub) + (sub ? '<div class="hint">제출했어요! 아래 ④에서 유전자형과 퍼넷 사각형으로 확인해 보세요.</div>' : S.cf ? '<div class="hint">제출하면 수정할 수 없어요. 제출할까요?</div><button onclick="doSubmit()">네, 제출할게요</button> <button class="sub" onclick="cancelSubmit()">더 고칠게요</button>' : '<p><button onclick="submitNote()">메모 제출하기</button> <span class="muted">제출하면 수정할 수 없어요.</span></p>'))
+    + verify();
+  app.innerHTML = head + main + glossary();
+  S.fresh = 0;
 }
 function ansArr() { let a = S.notes[S.stage]; if (!Array.isArray(a)) a = S.notes[S.stage] = a ? [a] : []; return a; }
 function qaBoxes(n, locked) {
@@ -278,7 +422,7 @@ function qaBoxes(n, locked) {
 window.setAns = (i, v) => { ansArr()[i] = v; };
 const ansList = () => GD[S.stage].map((_, i) => (ansArr()[i] || "").trim());
 window.submitNote = () => {
-  const a = ansList(); if (a.some(x => !x)) return toast("모든 질문에 답을 적어 주세요.");
+  if (!missionsOK()) return toast("위의 미션 ①~③을 먼저 마쳐 주세요."); const a = ansList(); if (a.some(x => !x)) return toast("모든 질문에 답을 적어 주세요.");
   if (a.join("").length < 10) return toast("조금 더 자세히 적어 주세요.");
   S.cf = true; render();
 };
@@ -331,22 +475,40 @@ function login() {
   <div class="card login"><h2>내 계정으로 시작하기</h2><div class="row"><label>반 코드<input id="code" value="${esc(sv.code || "")}" placeholder="예: 3-2"></label><label>이름<input id="nm" value="${esc(sv.name || "")}"></label><label>비밀번호(숫자 4자리)<input id="pin" type="password" inputmode="numeric" maxlength="4"></label></div>
   <p class="muted">처음이면 새 계정이 만들어져요. 다음 시간에 같은 정보로 들어오면 이어서 할 수 있어요. 비밀번호를 잊지 마세요!</p><p><button onclick="enter()">시작하기</button></p></div>`;
 }
+let schan = null;
+function applyAdmin(a, live) {
+  if (a.action === "unlock" && a.step) { S.prog.unlock[a.step] = true; if (live) { persist(); render(); toast("선생님이 다음 단계를 열어 주셨어요!"); } }
+}
+function listenAdmin() {
+  if (!sb) return; if (schan) sb.removeChannel(schan);
+  schan = sb.channel("adm-" + S.code + "-" + S.name).on("postgres_changes", {event:"INSERT", schema:"public", table:"logs", filter:"kind=eq.admin"}, p => {
+    const r = p.new; if (r.class_code === S.code && r.student === S.name) applyAdmin(r.payload, true); }).subscribe();
+}
 window.enter = async () => {
   const code = $("#code").value.trim(), name = $("#nm").value.trim(), pin = $("#pin").value.trim();
   if (!code || !name) return toast("반 코드와 이름을 입력하세요.");
   if (!/^\d{4}$/.test(pin)) return toast("비밀번호는 숫자 4자리예요.");
-  S.code = code; S.name = name; S.stage = 0; const ph = hp(code + "|" + name + "|" + pin); let acc = null;
+  S.code = code; S.name = name; S.stage = 0; const ph = hp(code + "|" + name + "|" + pin); let acc = null, reset = false, adm = [];
   try { acc = JSON.parse(localStorage.getItem(AK()) || "null"); localStorage.setItem("mendel-last", JSON.stringify({code, name})); } catch (e) {}
-  if (!acc && sb) {
-    const {data} = await sb.from("logs").select("payload").eq("class_code", code).eq("student", name).eq("kind", "progress").order("created_at", {ascending:false}).limit(1);
-    if (data && data[0]) { const p = data[0].payload; acc = {pin:p.pin, prog:{sub:p.sub || {}, ver:p.ver || {}, quiz:p.quiz || {}, notes:{}}, saved:{}, stage:1}; }
+  if (sb) {
+    const q = k => sb.from("logs").select("payload,created_at").eq("class_code", code).eq("student", name).eq("kind", k);
+    const [pr, ad] = await Promise.all([q("progress").order("created_at", {ascending:false}).limit(1), q("admin").order("created_at")]);
+    if (pr.error || ad.error) toast("서버에 연결하지 못했어요. 이 기기에 저장된 기록으로 진행해요.");
+    const srv = pr.data && pr.data[0]; adm = ad.data || [];
+    const lr = adm.filter(r => r.payload.action === "resetpin").pop();
+    reset = !!lr && (!srv || lr.created_at > srv.created_at);
+    if (!acc && srv) { const p = srv.payload; acc = {pin:p.pin, prog:{sub:p.sub || {}, ver:p.ver || {}, quiz:p.quiz || {}, pred:p.pred || {}, unlock:p.unlock || {}, finSeen:!!p.fin, tut:true}, saved:{}, stage:1}; }
   }
-  if (acc && acc.pin !== ph) return toast("비밀번호가 맞지 않아요.");
-  S.pin = ph; S.prog = acc ? acc.prog : {sub:{}, ver:{}, quiz:{}, notes:{}}; S.prog.notes = S.prog.notes || {};
-  S.sub = S.prog.sub; S.notes = S.prog.notes; S.saved = acc ? acc.saved : {};
+  if (acc && !reset && acc.pin !== ph) return toast("비밀번호가 맞지 않아요. 잊었다면 선생님께 초기화를 부탁하세요.");
+  S.pin = ph; S.prog = Object.assign({sub:{}, ver:{}, quiz:{}, notes:{}, pred:{}, pfill:{}, unlock:{}, tut:false, finSeen:false}, acc ? acc.prog : {});
+  adm.forEach(r => applyAdmin(r.payload, false));
+  S.sub = S.prog.sub; S.notes = S.prog.notes; S.saved = acc ? acc.saved : {}; S.cls = {};
   startStage(acc && acc.stage ? acc.stage : 1);
+  if (reset || !acc) syncProg();
+  if (reset) toast("새 비밀번호로 등록했어요!");
+  listenAdmin();
 };
-window.logout = () => { persist(); login(); };
+window.logout = () => { persist(); if (schan && sb) { sb.removeChannel(schan); schan = null; } login(); };
 
 // ---- 교사용 (주소 뒤에 ?teacher 를 붙여 접속) ----
 function teacher() {
@@ -356,16 +518,16 @@ window.tpin = () => {
   if ($("#pin").value !== TEACHER_PIN) return toast("비밀번호가 맞지 않아요.");
   app.innerHTML = `<h1>교사용 화면</h1><div class="card row"><label>반 코드<input id="tc" placeholder="예: 3-2"></label><button onclick="watch()">불러오기</button></div><div id="board"></div>`;
 };
-let chan = null, TS = 1, TROWS = [], tq = 0;
+let chan = null, TS = 1, TROWS = [], tq = 0, TSEL = "", TCODE = "";
 window.tstage = n => { TS = n; tdraw(); };
 const tsoon = () => { if (!tq) tq = setTimeout(() => { tq = 0; tdraw(); }, 300); };
 const stN = s => TRS[s].length, pn = (s, k) => [...k].map((d, i) => TRALL[TRS[s][i]].ph[d]).join("·");
 const tcol = (s, n) => n === 1 ? (s === 2 ? ["#c9a22a", "#5a9436"] : ["#2b5d34", "#7a5a86"]) : n === 2 ? PAL.slice(0, 4) : PAL;
 const TY = {PP:"부모 × 부모", F1:"자손 1세대끼리 (자가수분 포함)", OT:"그 외 교배 (자손 2세대 이상, 부모와 교배 등)"};
 const tyOf = p => { const a = p.a || "", b = p.b || "", P = x => x.startsWith("부모"), F = x => /^자손 1세대 \d+호/.test(x); return P(a) && P(b) ? "PP" : F(a) && F(b) ? "F1" : "OT"; };
-function agg(s) {
+function agg(s, rows = TROWS) {
   const out = {};
-  TROWS.filter(r => r.kind === "cross" && r.payload.stage === s).forEach(r => {
+  rows.filter(r => r.kind === "cross" && r.payload.stage === s).forEach(r => {
     const t = tyOf(r.payload), o = out[t] = out[t] || {cnt:{}, st:new Set(), n:0, x:0, hist:[]};
     o.st.add(r.student); o.x++;
     for (const k in r.payload.counts) { o.cnt[k] = (o.cnt[k] || 0) + r.payload.counts[k]; o.n += r.payload.counts[k]; }
@@ -388,6 +550,7 @@ function aggCard(s, t, o) {
     return `<div class="bar"><div class="bh"><span class="nm">${pn(s, k)}</span><span class="pc">${p.toFixed(1)}%</span><span class="chip">비율 ${ok ? fr(v[i] / m) : "-"}</span><span class="muted">${v[i]}개</span></div><div class="trk"><i style="width:${p}%;background:${col[i]}"></i></div></div>`; }).join("");
   return `<div class="sub-h">${TY[t]}</div><p class="muted">학생 ${o.st.size}명 · 교배 ${o.x}회 · 씨앗 ${o.n}개</p>${bars}${ok ? `<div class="sum">비율 = ${v.map(x => fr(x / m)).join(" : ")}<div class="muted">(위에 나온 순서대로)</div></div>` : ""}${t === "F1" && o.hist.length > 1 ? tTrend(s, o) : ""}`;
 }
+const lastBy = (kind, nm) => { const r = TROWS.filter(x => x.kind === kind && x.student === nm); return r.length ? r[r.length - 1].payload : null; };
 function notesSec(s) {
   const by = {}; TROWS.filter(r => r.kind === "note" && r.payload.stage === s).forEach(r => { by[r.student] = r.payload; });
   const names = Object.keys(by).sort();
@@ -396,13 +559,14 @@ function notesSec(s) {
 }
 function progSec() {
   const by = {}; TROWS.forEach(r => (by[r.student] = by[r.student] || []).push(r));
-  const names = Object.keys(by).sort(); if (!names.length) return '<p class="muted">아직 기록이 없어요.</p>';
+  const names = Object.keys(by).filter(nm => by[nm].some(r => r.kind !== "admin")).sort(); if (!names.length) return '<p class="muted">아직 기록이 없어요.</p>';
   const ex = (pg, cr, n) => `${cr[n]}회 · 제출${(pg.sub || {})[n] ? "✓" : "·"} · 검증${(pg.ver || {})[n] ? "✓" : "·"}`;
   const rows = names.map(nm => {
     const R = by[nm], cr = {1:0, 2:0, 3:0, 4:0}; R.filter(r => r.kind === "cross").forEach(r => { cr[r.payload.stage]++; });
-    const ps = R.filter(r => r.kind === "progress"), pg = ps.length ? ps[ps.length - 1].payload : {}, qz = pg.quiz || {}, q = id => { const st = qz[id]; if (!st || !st.done) return "<td>·</td>"; const t = QZ[id].qs.length, c = QZ[id].qs.filter((x, i) => x.ok(st.ans[i])).length; return `<td class="${c === t ? "cok" : "cno"}"><b>${c}/${t}</b></td>`; };
-    return `<tr><th>${esc(nm)}</th><td>${ex(pg, cr, 1)}</td><td>${ex(pg, cr, 2)}</td>${q("A")}<td>${ex(pg, cr, 3)}</td>${q("B")}<td>${ex(pg, cr, 4)}</td></tr>`; }).join("");
-  return `<div class="pw"><table><tr><th>학생</th><th>실험 1</th><th>실험 2</th><th>형성평가 ①</th><th>실험 3</th><th>형성평가 ②</th><th>실험 4</th></tr>${rows}</table></div>`;
+    const ps = R.filter(r => r.kind === "progress"), pg = ps.length ? ps[ps.length - 1].payload : {}, qz = pg.quiz || {};
+    const q = id => { const st = qz[id]; if (!st || !st.done) return "<td>·</td>"; const t = QZ[id].qs.length, c = QZ[id].qs.filter((x, i) => x.ok(st.ans[i])).length; return `<td class="${c === t ? "cok" : "cno"}"><b>${c}/${t}</b>${st.retried ? ` <span class="muted">(처음 ${st.first}/${t})</span>` : ""}</td>`; };
+    return `<tr><th class="lnk" data-n="${esc(nm)}" onclick="tsel(this.dataset.n)">${esc(nm)}</th><td>${ex(pg, cr, 1)}</td><td>${ex(pg, cr, 2)}</td>${q("A")}<td>${ex(pg, cr, 3)}</td>${q("B")}<td>${ex(pg, cr, 4)}</td></tr>`; }).join("");
+  return `<p class="muted">학생 이름을 누르면 아래에 그 학생의 상세 기록과 관리 버튼이 나와요.</p><div class="pw"><table><tr><th>학생</th><th>실험 1</th><th>실험 2</th><th>형성평가 ①</th><th>실험 3</th><th>형성평가 ②</th><th>실험 4</th></tr>${rows}</table></div>`;
 }
 function quizSec() {
   const P = {}; TROWS.filter(r => r.kind === "progress").forEach(r => { P[r.student] = r.payload; });
@@ -420,17 +584,56 @@ function quizSec() {
     return `<div class="sub-h">${Q.t}</div><div class="pw"><table><tr><th>학생</th>${Q.qs.map((q, i) => `<th>문항 ${i + 1}</th>`).join("")}<th>점수</th></tr>${sum}${rows}</table></div>`;
   }).join("");
 }
+window.tsel = nm => { TSEL = nm; tdraw(); const e = document.getElementById("stu"); if (e) e.scrollIntoView({behavior:"smooth"}); };
+async function admSend(action, step) {
+  if (!sb || !TSEL) return;
+  const {error} = await sb.from("logs").insert({class_code:TCODE, student:TSEL, kind:"admin", payload:{action, step:step || null}});
+  toast(error ? "처리하지 못했어요." : action === "resetpin" ? `${TSEL} 학생의 비밀번호를 초기화했어요. 다음 로그인 때 새 비밀번호를 정할 수 있어요.` : `${TSEL} 학생의 단계를 열어 줬어요.`);
+}
+window.admReset = () => admSend("resetpin");
+window.admUnlock = () => admSend("unlock", document.getElementById("ulstep").value);
+function stuSec() {
+  if (!TSEL) return "";
+  const R = TROWS.filter(r => r.student === TSEL), pg = lastBy("progress", TSEL) || {}, pred = pg.pred || {};
+  const cr = R.filter(r => r.kind === "cross"), ul = Object.keys(pg.unlock || {});
+  const rows = cr.slice(-40).reverse().map(r => { const p = r.payload; return `<tr><td>실험 ${p.stage}</td><td>${esc(p.a)}${p.a === p.b ? " (자가수분)" : " × " + esc(p.b)}</td><td>${p.n}개</td><td>${Object.keys(p.counts).sort().map(k => pn(p.stage, k) + " " + p.counts[k]).join(", ")}</td></tr>`; }).join("");
+  const adm = R.filter(r => r.kind === "admin").map(r => `${r.payload.action === "resetpin" ? "비밀번호 초기화" : "단계 열기(" + r.payload.step + ")"}`).join(", ");
+  return `<section class="sec s5 hide-big" id="stu"><div class="sec-h" style="cursor:default">학생 상세: ${esc(TSEL)}</div><div class="sec-b">
+  <div class="sub-h">관리</div><button onclick="admReset()">비밀번호 초기화</button> <select id="ulstep" style="width:auto;display:inline-block"><option value="qA">형성평가 ① 열기</option><option value="e3">실험 3 열기</option><option value="qB">형성평가 ② 열기</option><option value="e4">실험 4 열기</option></select> <button class="sub" onclick="admUnlock()">선택한 단계 열어 주기</button>
+  <p class="muted">${adm ? "지금까지 한 관리: " + adm : "아직 관리 기록이 없어요."}${ul.length ? " · 열린 단계: " + ul.join(", ") : ""}</p>
+  <div class="sub-h">예상해 보기 기록</div><p>${Object.keys(pred).length ? Object.keys(pred).sort().map(s => `실험 ${s}: ${pred[s]}%`).join(" · ") : "아직 없어요."}</p>
+  <div class="sub-h">최근 교배 기록 (최대 40건)</div>${rows ? `<div class="pw"><table><tr><th>실험</th><th>부모</th><th>씨앗</th><th>결과</th></tr>${rows}</table></div>` : '<p class="muted">교배 기록이 없어요.</p>'}</div></section>`;
+}
+const csvq = v => '"' + String(v == null ? "" : v).replace(/"/g, '""') + '"';
+function csvText() {
+  const names = [...new Set(TROWS.filter(r => r.kind !== "admin").map(r => r.student))].sort();
+  const H = ["학생"]; [1, 2, 3, 4].forEach(s => H.push(`실험${s} 교배횟수`, `실험${s} 씨앗수`, `실험${s} 메모제출`, `실험${s} 검증`, `실험${s} 예상(%)`));
+  ["A", "B"].forEach(id => { H.push(`형성평가${id} 점수`, `형성평가${id} 처음점수`); QZ[id].qs.forEach((q, i) => H.push(`형성평가${id} 문항${i + 1} 답`, `형성평가${id} 문항${i + 1} 정오`)); });
+  [1, 2, 3, 4].forEach(s => GD[s].forEach((q, i) => H.push(`실험${s} 질문${i + 1} 답안`)));
+  const rows = names.map(nm => {
+    const pg = lastBy("progress", nm) || {}, cr = TROWS.filter(r => r.kind === "cross" && r.student === nm), row = [nm];
+    [1, 2, 3, 4].forEach(s => { const c = cr.filter(r => r.payload.stage === s); row.push(c.length, c.reduce((a, r) => a + r.payload.n, 0), (pg.sub || {})[s] ? "O" : "", (pg.ver || {})[s] ? "O" : "", (pg.pred || {})[s] != null ? pg.pred[s] : ""); });
+    ["A", "B"].forEach(id => { const st = (pg.quiz || {})[id], N = QZ[id].qs.length; row.push(st && st.done ? QZ[id].qs.filter((q, i) => q.ok(st.ans[i])).length + "/" + N : "", st && st.done ? (st.first != null ? st.first : "") + "/" + N : ""); QZ[id].qs.forEach((q, i) => row.push(st && st.done ? st.ans[i].join(", ") : "", st && st.done ? (q.ok(st.ans[i]) ? "O" : "X") : "")); });
+    [1, 2, 3, 4].forEach(s => { const n = TROWS.filter(r => r.kind === "note" && r.student === nm && r.payload.stage === s), p = n.length ? n[n.length - 1].payload : null; GD[s].forEach((q, i) => row.push(p ? (p.answers ? p.answers[i] : (i === 0 ? p.text : "")) : "")); });
+    return row; });
+  return "\ufeff" + [H, ...rows].map(r => r.map(csvq).join(",")).join("\r\n");
+}
+window.csv = () => {
+  const b = new Blob([csvText()], {type:"text/csv;charset=utf-8"}), a = document.createElement("a");
+  a.href = URL.createObjectURL(b); a.download = `완두콩실험_${TCODE}.csv`; document.body.appendChild(a); a.click(); a.remove();
+};
+window.big = () => { document.documentElement.classList.toggle("big"); };
 function tdraw() {
   const s = TS, A = agg(s), tabs = [1, 2, 3, 4].map(i => `<button class="${i === s ? "on" : ""}" onclick="tstage(${i})">실험 ${i}</button>`).join("");
-  $("#board").innerHTML = `<div class="tabs">${tabs}</div>
+  $("#board").innerHTML = `<div class="card hide-big"><button onclick="csv()">📥 결과 CSV(엑셀) 내려받기</button> <button class="sub" onclick="big()">🖥️ 큰 화면 모드 켜기/끄기</button> <span class="muted">큰 화면 모드는 프로젝터용으로 글씨를 키우고 개인 기록을 숨겨요.</span></div><div class="tabs">${tabs}</div>
   <section class="sec s1"><div class="sec-h">반 전체 교배 결과<small>모든 학생의 결과를 합쳐서 보여줘요 (실험 ${s})</small></div><div class="sec-b">${["PP", "F1", "OT"].map(t => A[t] ? aggCard(s, t, A[t]) : `<div class="sub-h">${TY[t]}</div><p class="muted">아직 기록이 없어요.</p>`).join("")}</div></section>
   <section class="sec s2"><div class="sec-h">내가 발견한 규칙 제출<small>실험 ${s}의 질문별로 학생들의 답안을 한꺼번에 봐요</small></div><div class="sec-b">${notesSec(s)}</div></section>
-  <section class="sec s3"><div class="sec-h">학생별 진행 현황</div><div class="sec-b">${progSec()}</div></section>
-  <section class="sec s4"><div class="sec-h">형성평가 답안</div><div class="sec-b">${quizSec()}</div></section>`;
+  <section class="sec s3 hide-big"><div class="sec-h">학생별 진행 현황</div><div class="sec-b">${progSec()}</div></section>${stuSec()}
+  <section class="sec s4 hide-big"><div class="sec-h">형성평가 답안</div><div class="sec-b">${quizSec()}</div></section>`;
 }
 window.watch = async () => {
   if (!sb) return toast("서버 설정이 필요해요.");
-  const code = $("#tc").value.trim(); if (chan) sb.removeChannel(chan);
+  const code = $("#tc").value.trim(); TCODE = code; if (chan) sb.removeChannel(chan);
   let rows = [], from = 0;
   for (;;) {
     const {data, error} = await sb.from("logs").select("*").eq("class_code", code).order("created_at").range(from, from + 999);
