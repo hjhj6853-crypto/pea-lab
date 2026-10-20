@@ -355,13 +355,14 @@ function clsCard() {
   const A = agg(S.stage, c).F1;
   return `<div class="sub-h">우리 반 전체 결과</div><div class="hint">내 결과는 들쭉날쭉했어도, 반 친구들의 결과를 모두 합치면 어떻게 될까요?</div>${A ? aggCard(S.stage, "F1", A) : '<p class="muted">아직 반에 자손 1세대끼리 교배한 기록이 없어요.</p>'}<p><button class="sub" onclick="reloadCls()">우리 반 결과 새로고침</button></p>`;
 }
+async function retry(f) { let r; for (let i = 0; i < 3; i++) { r = await f(); if (!r.error) return r; await new Promise(x => setTimeout(x, 600 * (i + 1))); } return r; }
 async function loadCls(stage) {
   S.cls = S.cls || {}; if (S.cls[stage] === "loading") return; S.cls[stage] = "loading";
-  let rows = [], from = 0;
-  for (let i = 0; i < 6; i++) {
-    const {data, error} = await sb.from("logs").select("student,payload").eq("class_code", S.code).eq("kind", "cross").eq("payload->>stage", String(stage)).order("created_at").range(from, from + 999);
-    if (error) { S.cls[stage] = "err"; return render(); }
-    rows = rows.concat(data || []); if (!data || data.length < 1000) break; from += 1000;
+  let rows = [], last = 0;
+  for (let i = 0; i < 20; i++) {
+    const r = await retry(() => sb.from("logs").select("id,student,payload").eq("class_code", S.code).eq("kind", "cross").eq("payload->>stage", String(stage)).like("payload->>a", "자손 1세대 %호").like("payload->>b", "자손 1세대 %호").gt("id", last).order("id").limit(1000));
+    if (r.error) { S.cls[stage] = "err"; return render(); }
+    const d = r.data || []; rows = rows.concat(d); if (d.length < 1000) break; last = d[d.length - 1].id;
   }
   S.cls[stage] = rows.map(r => ({kind:"cross", student:r.student, payload:r.payload})); render();
 }
@@ -503,7 +504,7 @@ window.enter = async () => {
   try { acc = JSON.parse(localStorage.getItem(AK()) || "null"); localStorage.setItem("mendel-last", JSON.stringify({code, name})); } catch (e) {}
   if (sb) {
     const base = () => sb.from("logs").select("payload,created_at,student").eq("class_code", code);
-    const [pr, ad] = await Promise.all([base().eq("student", name).eq("kind", "progress").order("created_at", {ascending:false}).limit(1), base().in("student", [name, "*"]).eq("kind", "admin").order("created_at")]);
+    const [pr, ad] = await Promise.all([retry(() => base().eq("student", name).eq("kind", "progress").order("created_at", {ascending:false}).limit(1)), retry(() => base().in("student", [name, "*"]).eq("kind", "admin").order("created_at"))]);
     if (pr.error || ad.error) toast("서버에 연결하지 못했어요. 이 기기에 저장된 기록으로 진행해요.");
     const srv = pr.data && pr.data[0]; adm = ad.data || [];
     const lr = adm.filter(r => r.payload.action === "resetpin" && r.student === name).pop();
@@ -657,11 +658,11 @@ function tdraw() {
 window.watch = async () => {
   if (!sb) return toast("서버 설정이 필요해요.");
   const code = $("#tc").value.trim(); TCODE = code; if (chan) sb.removeChannel(chan);
-  let rows = [], from = 0;
+  let rows = [], last = 0; $("#board").innerHTML = '<p class="muted">기록을 불러오는 중이에요…</p>';
   for (;;) {
-    const {data, error} = await sb.from("logs").select("*").eq("class_code", code).order("created_at").range(from, from + 999);
-    if (error) return toast("기록을 불러오지 못했어요.");
-    rows = rows.concat(data || []); if (!data || data.length < 1000) break; from += 1000;
+    const r = await retry(() => sb.from("logs").select("*").eq("class_code", code).gt("id", last).order("id").limit(1000));
+    if (r.error) { $("#board").innerHTML = ""; return toast("기록을 불러오지 못했어요. 서버가 바쁜 것 같아요. 잠시 후 다시 눌러 주세요."); }
+    const d = r.data || []; rows = rows.concat(d); $("#board").innerHTML = `<p class="muted">기록을 불러오는 중이에요… ${rows.length}줄</p>`; if (d.length < 1000) break; last = d[d.length - 1].id;
   }
   TROWS = rows; tdraw();
   chan = sb.channel("logs-" + code).on("postgres_changes", {event:"INSERT", schema:"public", table:"logs", filter:"class_code=eq." + code}, p => { TROWS.push(p.new); tsoon(); }).subscribe();
