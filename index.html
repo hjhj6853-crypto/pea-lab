@@ -77,6 +77,7 @@ table{border-collapse:collapse;width:100%;background:#fff}td,th{border:1px solid
 const SUPABASE_URL = "https://mcieigttqvlkecbtsoia.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_9t4zUpTBEj-R0VMcDcJI-g_F5Jn04OU";
 const SITE_URL = ""; // 학생들이 접속할 주소. 비워 두면 지금 열려 있는 인터넷 주소로 QR을 만들어요
+const CLASSES = ["3-1", "3-2", "3-3", "3-4", "3-5", "3-6", "3-7"]; // 학생이 고를 반 목록(필요하면 고치세요)
 const TEACHER_PIN = "690203"; // 교사용 화면 비밀번호(수업 전에 바꾸세요)
 // ▲
 
@@ -119,7 +120,7 @@ function persist() {
   S.saved = S.saved || {}; S.saved[S.stage] = snap();
   try { localStorage.setItem(AK(), JSON.stringify({pin:S.pin, prog:S.prog, saved:S.saved, stage:S.stage})); } catch (e) {}
 }
-function syncProg() { send("progress", {pin:S.pin, sub:S.prog.sub, ver:S.prog.ver, quiz:S.prog.quiz, unlock:S.prog.unlock, pred:S.prog.pred, fin:!!S.prog.finSeen}); }
+function syncProg() { flushCross(); send("progress", {pin:S.pin, sub:S.prog.sub, ver:S.prog.ver, quiz:S.prog.quiz, unlock:S.prog.unlock, pred:S.prog.pred, fin:!!S.prog.finSeen}); }
 function startStage(n) {
   if (S.stage) { S.saved = S.saved || {}; S.saved[S.stage] = snap(); }
   S.stage = n; S.view = "e" + n; S.tr = TRS[n]; TR = S.tr.map(i => TRALL[i]); S.n = TR.length; S.vp = null; S.cf = false; S.col = {}; S.pq = null; S.fresh = 0;
@@ -256,8 +257,16 @@ window.doCross = (z, N) => {
   for (let k = 0; k < N; k++) { const g = child(a.g, b.g, n), key = phKey(g, n); K.push(g); c[key] = (c[key] || 0) + 1; cm[key] = (cm[key] || 0) + 1; }
   if (K.length > 300) K.splice(0, K.length - 300);
   S.pairs[pk] = {a, b}; S.last = {z, pk, a, b}; S.fresh = N;
-  send("cross", {stage:S.stage, a:a.label, b:b.label, n:N, counts:c}); render();
+  queueCross({stage:S.stage, a:a.label, b:b.label, n:N, counts:c}); render();
 };
+let cq = {}, cqT = 0;
+function queueCross(p) {
+  const k = p.stage + "|" + p.a + "|" + p.b, e = cq[k] = cq[k] || {stage:p.stage, a:p.a, b:p.b, n:0, counts:{}, clicks:0};
+  e.n += p.n; e.clicks++; for (const x in p.counts) e.counts[x] = (e.counts[x] || 0) + p.counts[x];
+  if (e.clicks >= 30 || e.n >= 1500) flushCross(); else if (!cqT) cqT = setTimeout(flushCross, 6000);
+}
+function flushCross() { clearTimeout(cqT); cqT = 0; const L = Object.values(cq); cq = {}; L.forEach(e => send("cross", e)); }
+if (window.addEventListener) { window.addEventListener("pagehide", flushCross); document.addEventListener && document.addEventListener("visibilitychange", () => { if (document.hidden) flushCross(); }); }
 window.setPv = v => { S.pv = +v; const e = document.getElementById("pv"); if (e) e.textContent = v + "%"; };
 window.savePred = () => { const q = S.pq; S.prog.pred[S.stage] = S.pv; S.pq = null; send("pred", {stage:S.stage, pct:S.pv}); syncProg(); doCross(q.z, q.N); };
 window.resetCross = () => { const L = S.last; delete S.cum[L.pk]; delete S.kids[L.pk]; S.last = null; render(); };
@@ -478,13 +487,19 @@ function qrBox() {
   }
   return `<div class="qr off"><b>접속 QR 코드</b><span>인터넷 주소로 올리면 여기에 QR이 나타나요</span></div>`;
 }
+const normCode = s => { s = String(s || "").trim().replace(/[\s\u2010-\u2015\u2212\uFF0D~\uFF5E:\uFF1A\/\uFF0F.\u00B7]+/g, "-").replace(/^-+|-+$/g, ""); const m = s.match(/^(\d)(\d{1,2})$/); return m && !m[2].startsWith("0") ? m[1] + "-" + m[2] : s; };
+function codeField(cur) {
+  const other = cur && !CLASSES.includes(cur);
+  return `<label>반<select id="code" onchange="codeSel(this.value)"><option value="">반을 선택하세요</option>${CLASSES.map(c => `<option value="${c}" ${c === cur ? "selected" : ""}>${c}반</option>`).join("")}<option value="__x" ${other ? "selected" : ""}>기타(직접 입력)</option></select><input id="code2" placeholder="예: 3-2" value="${other ? esc(cur) : ""}" style="margin-top:6px;${other ? "" : "display:none"}"></label>`;
+}
+window.codeSel = v => { const e = document.getElementById("code2"); if (e) e.style.display = v === "__x" ? "block" : "none"; };
 function login() {
   S.stage = 0; S.name = ""; S.tr = [0, 1, 2]; TR = TRALL;
   let sv = {}; try { sv = JSON.parse(localStorage.getItem("mendel-last") || "{}"); } catch (e) {}
   const deco = ["000", "010", "100", "110", "001", "111"].map(k => seed(k, 3, 56)).join("");
   app.innerHTML = `<div class="hero">${qrBox()}<span class="unit">V. 생식과 유전 › 2. 유전</span><h1>완두콩 교배 실험실</h1><p>멘델처럼 완두를 직접 교배하면서 유전의 규칙을 찾아보아요!</p><div class="deco">${deco}</div></div>
   <div class="flow"><span>교배하기</span>→<span>관찰하기</span>→<span>규칙 찾기</span>→<span>퍼넷 사각형으로 검증</span></div>
-  <div class="card login"><h2>내 계정으로 시작하기</h2><div class="row"><label>반 코드<input id="code" value="${esc(sv.code || "")}" placeholder="예: 3-2"></label><label>이름<input id="nm" value="${esc(sv.name || "")}"></label><label>비밀번호(숫자 4자리)<input id="pin" type="password" inputmode="numeric" maxlength="4"></label></div>
+  <div class="card login"><h2>내 계정으로 시작하기</h2><div class="row">${codeField(sv.code || "")}<label>이름<input id="nm" value="${esc(sv.name || "")}"></label><label>비밀번호(숫자 4자리)<input id="pin" type="password" inputmode="numeric" maxlength="4"></label></div>
   <p class="muted">처음이면 새 계정이 만들어져요. 다음 시간에 같은 정보로 들어오면 이어서 할 수 있어요. 비밀번호를 잊지 마세요!</p><p><button onclick="enter()">시작하기</button></p></div>`;
 }
 let schan = null;
@@ -497,8 +512,9 @@ function listenAdmin() {
     const r = p.new; if (r.class_code === S.code && (r.student === S.name || r.student === "*")) applyAdmin(r.payload, true); }).subscribe();
 }
 window.enter = async () => {
-  const code = $("#code").value.trim(), name = $("#nm").value.trim(), pin = $("#pin").value.trim();
-  if (!code || !name) return toast("반 코드와 이름을 입력하세요.");
+  let code = $("#code").value; if (code === "__x") code = $("#code2").value; code = normCode(code);
+  const name = $("#nm").value.trim(), pin = $("#pin").value.trim();
+  if (!code) return toast("반을 선택해 주세요."); if (!name) return toast("이름을 입력하세요.");
   if (!/^\d{4}$/.test(pin)) return toast("비밀번호는 숫자 4자리예요.");
   S.code = code; S.name = name; S.stage = 0; const ph = hp(code + "|" + name + "|" + pin); let acc = null, reset = false, adm = [];
   try { acc = JSON.parse(localStorage.getItem(AK()) || "null"); localStorage.setItem("mendel-last", JSON.stringify({code, name})); } catch (e) {}
@@ -520,7 +536,7 @@ window.enter = async () => {
   if (reset) toast("새 비밀번호로 등록했어요!");
   listenAdmin();
 };
-window.logout = () => { persist(); if (schan && sb) { sb.removeChannel(schan); schan = null; } login(); };
+window.logout = () => { flushCross(); persist(); if (schan && sb) { sb.removeChannel(schan); schan = null; } login(); };
 
 // ---- 교사용 (주소 뒤에 ?teacher 를 붙여 접속) ----
 function teacher() {
@@ -528,7 +544,7 @@ function teacher() {
 }
 window.tpin = () => {
   if ($("#pin").value !== TEACHER_PIN) return toast("비밀번호가 맞지 않아요.");
-  app.innerHTML = `<h1>교사용 화면</h1><div class="card row"><label>반 코드<input id="tc" placeholder="예: 3-2"></label><button onclick="watch()">불러오기</button></div><div id="board"></div>`;
+  app.innerHTML = `<h1>교사용 화면</h1><div class="card row"><label>반 코드<input id="tc" list="cl" placeholder="예: 3-2"><datalist id="cl">${CLASSES.map(c => `<option value="${c}">`).join("")}</datalist></label><button onclick="watch()">불러오기</button></div><div id="board"></div>`;
 };
 let chan = null, TS = 1, TROWS = [], tq = 0, TSEL = "", TCODE = "", TU = "qA", TCS = "qA", TCONF = "";
 const STEPOPT = [["qA", "형성평가 ① 열기"], ["e3", "실험 3 열기"], ["qB", "형성평가 ② 열기"], ["e4", "실험 4 열기"]];
@@ -544,7 +560,7 @@ function agg(s, rows = TROWS) {
   const out = {};
   rows.filter(r => r.kind === "cross" && r.payload.stage === s).forEach(r => {
     const t = tyOf(r.payload), o = out[t] = out[t] || {cnt:{}, st:new Set(), n:0, x:0, hist:[]};
-    o.st.add(r.student); o.x++;
+    o.st.add(r.student); o.x += r.payload.clicks || 1;
     for (const k in r.payload.counts) { o.cnt[k] = (o.cnt[k] || 0) + r.payload.counts[k]; o.n += r.payload.counts[k]; }
     o.hist.push({n:o.n, c:Object.assign({}, o.cnt)});
   });
@@ -579,7 +595,7 @@ function progSec() {
   const names = Object.keys(by).filter(nm => by[nm].some(r => r.kind !== "admin")).sort(); if (!names.length) return '<p class="muted">아직 기록이 없어요.</p>';
   const ex = (pg, cr, n) => `${cr[n]}회 · 제출${(pg.sub || {})[n] ? "✓" : "·"} · 검증${(pg.ver || {})[n] ? "✓" : "·"}`;
   const rows = names.map(nm => {
-    const R = by[nm], cr = {1:0, 2:0, 3:0, 4:0}; R.filter(r => r.kind === "cross").forEach(r => { cr[r.payload.stage]++; });
+    const R = by[nm], cr = {1:0, 2:0, 3:0, 4:0}; R.filter(r => r.kind === "cross").forEach(r => { cr[r.payload.stage] += r.payload.clicks || 1; });
     const ps = R.filter(r => r.kind === "progress"), pg = ps.length ? ps[ps.length - 1].payload : {}, qz = pg.quiz || {};
     const q = id => { const st = qz[id]; if (!st || !st.done) return "<td>·</td>"; const t = QZ[id].qs.length, c = QZ[id].qs.filter((x, i) => x.ok(st.ans[i])).length; return `<td class="${c === t ? "cok" : "cno"}"><b>${c}/${t}</b>${st.retried ? ` <span class="muted">(처음 ${st.first}/${t})</span>` : ""}</td>`; };
     return `<tr><th class="lnk" data-n="${esc(nm)}" onclick="tsel(this.dataset.n)">${esc(nm)}</th><td>${ex(pg, cr, 1)}</td><td>${ex(pg, cr, 2)}</td>${q("A")}<td>${ex(pg, cr, 3)}</td>${q("B")}<td>${ex(pg, cr, 4)}</td></tr>`; }).join("");
@@ -636,7 +652,7 @@ function csvText() {
   [1, 2, 3, 4].forEach(s => GD[s].forEach((q, i) => H.push(`실험${s} 질문${i + 1} 답안`)));
   const rows = names.map(nm => {
     const pg = lastBy("progress", nm) || {}, cr = TROWS.filter(r => r.kind === "cross" && r.student === nm), row = [nm];
-    [1, 2, 3, 4].forEach(s => { const c = cr.filter(r => r.payload.stage === s); row.push(c.length, c.reduce((a, r) => a + r.payload.n, 0), (pg.sub || {})[s] ? "O" : "", (pg.ver || {})[s] ? "O" : "", (pg.pred || {})[s] != null ? pg.pred[s] : ""); });
+    [1, 2, 3, 4].forEach(s => { const c = cr.filter(r => r.payload.stage === s); row.push(c.reduce((a, r) => a + (r.payload.clicks || 1), 0), c.reduce((a, r) => a + r.payload.n, 0), (pg.sub || {})[s] ? "O" : "", (pg.ver || {})[s] ? "O" : "", (pg.pred || {})[s] != null ? pg.pred[s] : ""); });
     ["A", "B"].forEach(id => { const st = (pg.quiz || {})[id], N = QZ[id].qs.length; row.push(st && st.done ? QZ[id].qs.filter((q, i) => q.ok(st.ans[i])).length + "/" + N : "", st && st.done ? (st.first != null ? st.first : "") + "/" + N : ""); QZ[id].qs.forEach((q, i) => row.push(st && st.done ? st.ans[i].join(", ") : "", st && st.done ? (q.ok(st.ans[i]) ? "O" : "X") : "")); });
     [1, 2, 3, 4].forEach(s => { const n = TROWS.filter(r => r.kind === "note" && r.student === nm && r.payload.stage === s), p = n.length ? n[n.length - 1].payload : null; GD[s].forEach((q, i) => row.push(p ? (p.answers ? p.answers[i] : (i === 0 ? p.text : "")) : "")); });
     return row; });
@@ -657,7 +673,7 @@ function tdraw() {
 }
 window.watch = async () => {
   if (!sb) return toast("서버 설정이 필요해요.");
-  const code = $("#tc").value.trim(); TCODE = code; if (chan) sb.removeChannel(chan);
+  const code = normCode($("#tc").value); TCODE = code; if (chan) sb.removeChannel(chan);
   let rows = [], last = 0; $("#board").innerHTML = '<p class="muted">기록을 불러오는 중이에요…</p>';
   for (;;) {
     const r = await retry(() => sb.from("logs").select("*").eq("class_code", code).gt("id", last).order("id").limit(1000));
